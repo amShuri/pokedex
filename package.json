@@ -1,0 +1,27 @@
+{
+  "name": "pokedex",
+  "version": "1.0.0",
+  "description": "Pokémon Pokédex built using HTML, CSS & JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "server": "http-server",
+    "cypress": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amShuri/pokedex.git"
+  },
+  "author": "amShuri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amShuri/pokedex/issues"
+  },
+  "homepage": "https://github.com/amShuri/pokedex#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.2",
+    "http-server": "^14.1.1"
+  },
+  "devDependencies": {
+    "cypress": "^13.4.0"
+  }
+}
