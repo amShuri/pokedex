@@ -1,0 +1,76 @@
+body {
+  background-color: rgb(249, 249, 249);
+  font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+nav {
+  background-color: rgb(245, 65, 100);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
+  color: rgb(255, 255, 255);
+}
+
+nav h2 {
+  font-size: 1.8rem;
+}
+
+a {
+  text-align: center;
+  text-decoration: none;
+}
+
+.row > div {
+  padding: 0.5rem;
+  transition: 0.5s;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.pokemon-card {
+  background-color: rgb(238, 238, 238);
+  border-radius: 6px;
+  padding: 10px;
+  transition: ease-out 0.4s;
+}
+
+.pokemon-card:hover {
+  background-color: rgb(226, 226, 226);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.pokemon-info {
+  margin: 0.5rem 0;
+  padding: 0.25rem 0;
+}
+
+.pokemon-info .name,
+.pokemon-info .number {
+  letter-spacing: 0.85px;
+  margin: 0;
+}
+
+.pokemon-info .name {
+  color: rgb(85, 85, 85);
+  font-family: 'Yaldevi', sans-serif;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.pokemon-info .number {
+  color: rgb(136, 136, 136);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .col-sm-4 {
+    width: 50%;
+  }
+}
+
+@media (max-width: 400px) {
+  .col-6 {
+    width: 100%;
+  }
+}
