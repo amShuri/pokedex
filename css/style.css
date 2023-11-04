@@ -31,7 +31,8 @@ a {
 .pokemon-card {
   background-color: rgb(238, 238, 238);
   border-radius: 6px;
-  padding: 10px;
+  height: 100%;
+  padding: 1rem;
   transition: ease-out 0.4s;
 }
 
