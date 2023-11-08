@@ -1,12 +1,27 @@
-const URL = 'https://pokeapi.co/api/v2';
-let offset = 40;
+const API_URL = 'https://pokeapi.co/api/v2';
+let limit = 12;
+let offset = 0;
 
 document.addEventListener('DOMContentLoaded', displayPokemonCards);
 
+async function fetchPokemonData(url) {
+  const res = await fetch(url);
+  const json = await res.json();
+  return json;
+}
+
 async function getPokemonList() {
-  const response = await fetch(`${URL}/pokemon?offset=${offset}&limit=${12}`);
-  const pokemonList = await response.json();
-  return pokemonList.results;
+  const cacheKey = `pokemonList_${offset}`;
+  const cachedData = localStorage.getItem(cacheKey);
+
+  if (cachedData) {
+    return JSON.parse(cachedData);
+  }
+
+  const pokemonData = await fetchPokemonData(`${API_URL}/pokemon?limit=${limit}&offset=${offset}`);
+  localStorage.setItem(cacheKey, JSON.stringify(pokemonData.results));
+
+  return pokemonData.results;
 }
 
 async function displayPokemonCards() {
