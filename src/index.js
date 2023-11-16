@@ -1,31 +1,31 @@
 const API_URL = 'https://pokeapi.co/api/v2';
-let limit = 12;
-let offset = 0;
+let limitPerPage = 12;
+let startOfPage = 0;
 
-document.addEventListener('DOMContentLoaded', displayPokemonCards);
+document.addEventListener('DOMContentLoaded', renderPokemonPage);
 
-async function fetchPokemonData(url) {
+async function fetchJson(url) {
   const res = await fetch(url);
   const json = await res.json();
   return json;
 }
 
 async function getPokemonList() {
-  const cacheKey = `pokemonList_${offset}`;
+  const cacheKey = `offset[${offset}]_limit[${limit}]`;
   const cachedData = localStorage.getItem(cacheKey);
 
   if (cachedData) {
     return JSON.parse(cachedData);
   }
 
-  const pokemonData = await fetchPokemonData(`${API_URL}/pokemon?limit=${limit}&offset=${offset}`);
-  localStorage.setItem(cacheKey, JSON.stringify(pokemonData.results));
+  const pokemonList = await fetchJson(`${API_URL}/pokemon?limit=${limit}&offset=${offset}`);
+  localStorage.setItem(cacheKey, JSON.stringify(pokemonList.results));
 
-  return pokemonData.results;
+  return pokemonList.results;
 }
 
-async function displayPokemonCards() {
-  const pokemonList = await getPokemonList();
+async function renderPokemonPage() {
+  const pokemonList = await getPokemonList(limitPerPage, startOfPage);
 
   pokemonList.forEach((pokemon) => {
     const pokemonName = pokemon.name;
