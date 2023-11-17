@@ -10,7 +10,7 @@ async function fetchJson(url) {
   return json;
 }
 
-async function getPokemonList() {
+async function getPokemonList(limit = 100000, offset = 0) {
   const cacheKey = `offset[${offset}]_limit[${limit}]`;
   const cachedData = localStorage.getItem(cacheKey);
 
@@ -66,4 +66,8 @@ function getPokemonNumber(pokemonUrl) {
 
 function getPokemonSprite(pokemonNumber) {
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonNumber}.png`;
+}
+
+function emptyCardContainer() {
+  document.querySelector('#card-container').textContent = '';
 }
