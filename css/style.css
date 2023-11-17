@@ -3,14 +3,13 @@ body {
   font-family: 'Zen Maru Gothic', sans-serif;
 }
 
-header {
+#header-navbar {
   background-color: rgb(245, 65, 100);
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
   color: rgb(255, 255, 255);
-  padding: 0.5rem;
 }
 
-header h2 {
+#header-navbar h2 {
   font-size: 1.8rem;
 }
 
@@ -19,14 +18,14 @@ a {
   text-decoration: none;
 }
 
-.row > div {
-  padding: 0.5rem;
-  transition: 0.5s;
-}
-
 .container {
   margin: 0 auto;
   max-width: 1000px;
+}
+
+#card-container > div {
+  padding: 0.5rem;
+  transition: 0.5s;
 }
 
 .pokemon-card {
