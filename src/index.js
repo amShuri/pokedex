@@ -68,6 +68,6 @@ function getPokemonSprite(pokemonNumber) {
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonNumber}.png`;
 }
 
-function emptyCardContainer() {
-  document.querySelector('#card-container').textContent = '';
+function removeContent(element) {
+  document.querySelector(element).textContent = '';
 }

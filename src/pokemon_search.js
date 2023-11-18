@@ -2,15 +2,15 @@ const $form = document.querySelector('#search-form');
 const $searchBar = document.querySelector('#search-bar');
 let pokemonMap;
 
-document.addEventListener('DOMContentLoaded', initPokemonListByName);
+document.addEventListener('DOMContentLoaded', async () => {
+  await initPokemonListByName();
 
-$form.addEventListener('submit', (e) => {
-  const userInput = $searchBar.value;
+  $form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-  renderPokemonCard(userInput);
-  $searchBar.value = '';
-
-  e.preventDefault();
+    renderPokemonCard($searchBar.value);
+    removeContent('#search-bar');
+  });
 });
 
 async function initPokemonListByName() {
@@ -19,14 +19,18 @@ async function initPokemonListByName() {
 }
 
 function renderPokemonCard(userInput) {
-  emptyCardContainer();
+  removeContent('#card-container');
 
-  const lowerCaseInput = userInput.toLowerCase();
-  const { name, number, sprite } = pokemonMap[lowerCaseInput];
+  const lowerCaseInput = new RegExp(userInput, 'i');
 
-  if (lowerCaseInput === name) {
-    createPokemonCard(name, number, sprite);
-  }
+  Object.keys(pokemonMap)
+    .filter((pokemon) => pokemon.match(lowerCaseInput))
+    .forEach((match) => {
+      if (pokemonMap.hasOwnProperty(match)) {
+        const { name, number, sprite } = pokemonMap[match];
+        createPokemonCard(name, number, sprite);
+      }
+    });
 }
 
 function mapPokemonByName(pokemonList) {
