@@ -20,17 +20,23 @@ async function initPokemonListByName() {
 
 function renderPokemonCard(userInput) {
   removeContent('#card-container');
+  hideElement('#error-card-container');
 
   const lowerCaseInput = new RegExp(userInput, 'i');
+  const matchedPokemon = getMatchedPokemon(pokemonMap, lowerCaseInput);
 
-  Object.keys(pokemonMap)
-    .filter((pokemon) => pokemon.match(lowerCaseInput))
-    .forEach((match) => {
-      if (pokemonMap.hasOwnProperty(match)) {
-        const { name, number, sprite } = pokemonMap[match];
-        createPokemonCard(name, number, sprite);
-      }
+  if (matchedPokemon.length > 0) {
+    matchedPokemon.forEach((match) => {
+      const { name, number, sprite } = pokemonMap[match];
+      createPokemonCard(name, number, sprite);
     });
+  } else {
+    showElement('#error-card-container');
+  }
+}
+
+function getMatchedPokemon(pokemonMap, userInput) {
+  return Object.keys(pokemonMap).filter((pokemon) => pokemon.match(userInput));
 }
 
 function mapPokemonByName(pokemonList) {
