@@ -64,6 +64,14 @@ a {
   font-size: 0.85rem;
 }
 
+.error-card {
+  border: 1px solid rgb(235, 35, 35);
+}
+
+.error-card h4 {
+  color: rgb(215, 29, 29);
+}
+
 @media (max-width: 600px) {
   .col-sm-4 {
     width: 50%;
