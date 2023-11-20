@@ -26,33 +26,37 @@
           <h2 class="m-0">Pokédex</h2>
         </div>
 
-        <form class="d-flex gap-2" id="search-form">
-          <input
-            class="form-control mr-sm-2"
-            id="search-bar"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            required
-          />
+        <form id="search-form" autocomplete="off">
+          <div class="d-flex gap-2">
+            <input
+              class="form-control"
+              id="search-bar"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              required
+            />
 
-          <button class="btn btn-outline-light px-2" id="search-btn" type="submit">
-            <span class="d-flex align-items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                fill="currentColor"
-                class="bi bi-search"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                />
-              </svg>
-            </span>
-            <span class="visually-hidden">Search</span>
-          </button>
+            <button class="btn btn-outline-light px-2" id="search-btn" type="submit">
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  fill="currentColor"
+                  class="bi bi-search"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                  />
+                </svg>
+              </span>
+              <span class="visually-hidden">Search</span>
+            </button>
+          </div>
+
+          <div class="visually-hidden" id="autocomplete-list"></div>
         </form>
       </div>
     </nav>
@@ -76,6 +80,7 @@
     </main>
 
     <script src="src/index.js"></script>
-    <script src="src/pokemon_search.js"></script>
+    <script src="src/search_feature/pokemon_search.js"></script>
+    <script src="src/search_feature/pokemon_autocomplete.js"></script>
   </body>
 </html>
