@@ -3,6 +3,12 @@ body {
   font-family: 'Zen Maru Gothic', sans-serif;
 }
 
+.container {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+/* Header Start */
 #header-navbar {
   background-color: rgb(245, 65, 100);
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
@@ -12,20 +18,17 @@ body {
 #header-navbar h2 {
   font-size: 1.8rem;
 }
+/* Header End */
 
-a {
-  text-align: center;
-  text-decoration: none;
-}
-
-.container {
-  margin: 0 auto;
-  max-width: 1000px;
-}
-
+/* Pokemon Card Start */
 #card-container > div {
   padding: 0.5rem;
   transition: 0.5s;
+}
+
+#card-container a {
+  text-align: center;
+  text-decoration: none;
 }
 
 .pokemon-card {
@@ -71,7 +74,41 @@ a {
 .error-card h4 {
   color: rgb(215, 29, 29);
 }
+/* Pokemon Card End */
 
+/* Search Bar Start */
+#search-form {
+  position: relative;
+  text-transform: capitalize;
+}
+
+#search-bar,
+#autocomplete-list,
+.autocomplete-option {
+  max-width: 200px;
+  width: 100%;
+}
+
+#autocomplete-list {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+  max-height: 300px;
+  overflow-x: hidden;
+  position: absolute;
+}
+
+.autocomplete-option {
+  background-color: #f4f3f8;
+  color: rgb(85, 85, 85);
+  cursor: pointer;
+  padding: 6px;
+}
+
+.autocomplete-option:hover {
+  background-color: #dae1eb;
+}
+/* Search Bar End */
+
+/* Media Queries Start */
 @media (max-width: 600px) {
   .col-sm-4 {
     width: 50%;
@@ -83,3 +120,4 @@ a {
     width: 100%;
   }
 }
+/* Media Queries End */
