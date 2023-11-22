@@ -13,7 +13,10 @@ $searchBar.addEventListener('input', (e) => {
 });
 
 $autocompleteList.addEventListener('mousedown', (e) => {
-  const pickedPokemon = e.target.closest('.autocomplete-option').querySelector('input').value;
+  const $autocompleteOption = e.target.closest('.autocomplete-option');
+  if (!$autocompleteOption) return;
+
+  const pickedPokemon = $autocompleteOption.querySelector('input').value;
   $searchBar.value = pickedPokemon;
 });
 
