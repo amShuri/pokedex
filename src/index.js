@@ -1,6 +1,6 @@
 const API_URL = 'https://pokeapi.co/api/v2';
-let limitPerPage = 12;
-let startOfPage = 0;
+let pokemonPerPage = 12;
+let pageOffset = 0;
 
 document.addEventListener('DOMContentLoaded', renderPokemonPage);
 
@@ -25,7 +25,8 @@ async function getPokemonList(limit = 100000, offset = 0) {
 }
 
 async function renderPokemonPage() {
-  const pokemonList = await getPokemonList(limitPerPage, startOfPage);
+  const pokemonList = await getPokemonList(pokemonPerPage, pageOffset);
+  removeContent('#card-container');
 
   pokemonList.forEach((pokemon) => {
     const pokemonName = pokemon.name;
