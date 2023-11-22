@@ -76,11 +76,39 @@
             </div>
           </div>
         </div>
+
+        <div class="row py-4">
+          <nav aria-label="pokemon-pages" class="d-flex justify-content-center">
+            <ul class="pagination rounded">
+              <li class="page-item">
+                <button class="page-link" aria-label="Previous" id="prev-page">
+                  <span aria-hidden="true">&laquo;</span>
+                </button>
+              </li>
+
+              <li class="page-item" id="page-info">
+                <button class="page-link">
+                  <span id="current-page">1</span>
+                  <span>of</span>
+                  <span id="last-page"></span>
+                </button>
+              </li>
+
+              <li class="page-item">
+                <button class="page-link" aria-label="Next" id="next-page">
+                  <span aria-hidden="true">&raquo;</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </main>
 
     <script src="src/index.js"></script>
-    <script src="src/search_feature/pokemon_search.js"></script>
-    <script src="src/search_feature/pokemon_autocomplete.js"></script>
+    <script src="src/search.js"></script>
+    <script src="src/search_autocomplete.js"></script>
+    <script src="src/pagination.js"></script>
+    <script src="src/pokedex_setup.js"></script>
   </body>
 </html>

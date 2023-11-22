@@ -97,16 +97,24 @@ body {
 }
 
 .autocomplete-option {
-  background-color: #f4f3f8;
+  background-color: rgb(243, 242, 247);
   color: rgb(85, 85, 85);
   cursor: pointer;
   padding: 6px;
 }
 
 .autocomplete-option:hover {
-  background-color: #dae1eb;
+  background-color: rgb(219, 226, 235);
 }
 /* Search Bar End */
+
+/* Pagination Start */
+.pagination {
+  position: fixed;
+  bottom: 0;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+/* Pagination End */
 
 /* Media Queries Start */
 @media (max-width: 600px) {
