@@ -1,4 +1,5 @@
 const API_URL = 'https://pokeapi.co/api/v2';
+const $cardContainer = document.querySelector('#card-container');
 let pokemonPerPage = 12;
 let pageOffset = 0;
 
@@ -38,14 +39,13 @@ async function renderPokemonPage() {
 }
 
 function createPokemonCard(pokemonName, pokemonNumber, pokemonSprite) {
-  const $cardContainer = document.querySelector('#card-container');
   const paddedNumber = pokemonNumber.padStart(4, '0');
 
   $cardContainer.insertAdjacentHTML(
     'beforeend',
     `
     <div class="col-lg-3 col-md-4 col-sm-4 col-6">
-      <a href="#">
+      <a href="#" data-bs-toggle="modal" data-bs-target="#modal-pokemon">
         <div class="pokemon-card">
           <img class="img-fluid" src="${pokemonSprite}" alt="Sprite of ${pokemonName}" />
           <div class="pokemon-info">

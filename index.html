@@ -61,6 +61,62 @@
       </div>
     </nav>
 
+    <div
+      class="modal fade"
+      id="modal-pokemon"
+      tabindex="-1"
+      aria-labelledby="pokedex-entry"
+      aria-describedby="pokemon-information"
+      aria-hidden="true"
+      role="dialog"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              fill="currentColor"
+              class="bi bi-clipboard-heart"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5 1.5A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5v1A1.5 1.5 0 0 1 9.5 4h-3A1.5 1.5 0 0 1 5 2.5zm5 0a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5z"
+              />
+              <path
+                d="M3 1.5h1v1H3a1 1 0 0 0-1 1V14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V3.5a1 1 0 0 0-1-1h-1v-1h1a2 2 0 0 1 2 2V14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2"
+              />
+              <path d="M8 6.982C9.664 5.309 13.825 8.236 8 12 2.175 8.236 6.336 5.31 8 6.982" />
+            </svg>
+            <h1 class="modal-title fs-5 ms-2">Pokédex Entry</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="modal-sprite">
+              <img class="img-fluid" src="" alt="" />
+            </div>
+            <div>
+              <table class="table">
+                <tbody class="modal-pokemon"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <main>
       <div class="container">
         <div class="row px-3 py-2" id="card-container"></div>
@@ -105,10 +161,16 @@
       </div>
     </main>
 
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
     <script src="src/index.js"></script>
     <script src="src/search.js"></script>
     <script src="src/search_autocomplete.js"></script>
     <script src="src/pagination.js"></script>
     <script src="src/pokedex_setup.js"></script>
+    <script src="src/modal.js"></script>
   </body>
 </html>
