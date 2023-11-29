@@ -100,6 +100,13 @@
           </div>
 
           <div class="modal-body">
+            <div class="visually-hidden p-2 d-flex align-items-center gap-3" id="modal-loading">
+              <div class="spinner-grow text-secondary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <span class="text-secondary">Loading Pokémon ...</span>
+            </div>
+
             <div class="modal-sprite">
               <img class="img-fluid" src="" alt="" />
             </div>
@@ -119,6 +126,13 @@
 
     <main>
       <div class="container">
+        <div class="visually-hidden row px-3 py-2" id="page-loading">
+          <div class="d-flex align-items-center gap-3 p-4 border border-secondary">
+            <img src="img/page-loading.gif" alt="" />
+            <span class="text-secondary">Loading list of Pokémon ...</span>
+          </div>
+        </div>
+
         <div class="row px-3 py-2" id="card-container"></div>
 
         <div class="row px-3 visually-hidden" id="error-card-container">

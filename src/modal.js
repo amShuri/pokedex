@@ -7,17 +7,24 @@ $cardContainer.addEventListener('click', (e) => {
 
   pickedPokemon = $pokemonCard.querySelector('.name').textContent;
 
+  removeContent('.modal-pokemon');
+  removeContent('.modal-sprite');
   renderPokemonModal();
 });
 
 async function renderPokemonModal() {
-  removeContent('.modal-pokemon');
-  removeContent('.modal-sprite');
+  try {
+    showElement('#modal-loading');
 
-  const pokemonData = await getPokemonData(pickedPokemon);
-  const pokemonSprite = getPokemonSprite(pokemonData.number);
+    const pokemonData = await getPokemonData(pickedPokemon);
+    const pokemonSprite = getPokemonSprite(pokemonData.number);
 
-  createPokemonModal(pokemonData, pokemonSprite);
+    createPokemonModal(pokemonData, pokemonSprite);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    hideElement('#modal-loading');
+  }
 }
 
 async function getPokemonData(pokemonName) {
