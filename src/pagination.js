@@ -24,6 +24,7 @@ function handlePageChange(button) {
 }
 
 function changePage() {
+  removeContent('#card-container');
   validatePageRange();
   updatePageData();
   renderPokemonPage();

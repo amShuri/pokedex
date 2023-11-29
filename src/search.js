@@ -5,15 +5,14 @@ function initPokemonSearch() {
   $form.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    hideElement('#error-card-container');
+    removeContent('#card-container');
     renderPokemonCard($searchBar.value);
     removeContent('#search-bar');
   });
 }
 
 function renderPokemonCard(userInput) {
-  removeContent('#card-container');
-  hideElement('#error-card-container');
-
   const lowerCaseInput = new RegExp(userInput, 'i');
   const matchedPokemon = getMatchedPokemon(pokemonMap, lowerCaseInput);
 
