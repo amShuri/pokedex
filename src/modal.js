@@ -5,13 +5,13 @@ $cardContainer.addEventListener('click', (e) => {
   if (!$pokemonCard) return;
 
   pickedPokemon = $pokemonCard.querySelector('.name').textContent;
-  removeContent('#modal-pokemon');
-  removeContent('#modal-sprite');
+
   renderPokemonModal();
 });
 
 async function renderPokemonModal() {
   try {
+    hideElement('#pokemon-data');
     showElement('#modal-loading');
 
     const pokemonData = await getPokemonData(pickedPokemon);
@@ -19,6 +19,7 @@ async function renderPokemonModal() {
   } catch (error) {
     console.log(error);
   } finally {
+    showElement('#pokemon-data');
     hideElement('#modal-loading');
   }
 }
@@ -47,6 +48,9 @@ async function getPokemonData(pokemonName) {
 }
 
 function createPokemonModal(pokemonData) {
+  // Empty the modal before populating it
+  removeModalContent();
+
   const $table = document.querySelector('tbody');
 
   Object.keys(pokemonData).forEach((key) => {
@@ -136,3 +140,7 @@ function getPokemonSprite(pokemonNumber) {
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonNumber}.png`;
 }
 
+function removeModalContent() {
+  removeContent('#pokemon-details');
+  removeContent('#pokemon-sprite');
+}
