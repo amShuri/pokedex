@@ -52,11 +52,10 @@
                   />
                 </svg>
               </span>
-              <span class="visually-hidden">Search</span>
             </button>
           </div>
 
-          <div class="visually-hidden" id="autocomplete-list"></div>
+          <div class="visually-hidden invisible" id="autocomplete-list"></div>
         </form>
       </div>
     </nav>
@@ -100,20 +99,21 @@
           </div>
 
           <div class="modal-body">
-            <div class="visually-hidden p-2 d-flex align-items-center gap-3" id="modal-loading">
-              <div class="spinner-grow text-secondary" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
+            <div
+              class="d-flex align-items-center gap-3 p-2 visually-hidden invisible"
+              id="modal-loading"
+            >
+              <div class="spinner-grow text-secondary" role="status"></div>
               <span class="text-secondary">Loading Pokémon ...</span>
             </div>
 
-            <div class="modal-sprite">
-              <img class="img-fluid" src="" alt="" />
-            </div>
-            <div>
-              <table class="table">
-                <tbody class="modal-pokemon"></tbody>
-              </table>
+            <div class="d-flex align-items-center" id="modal-pokemon">
+              <div id="sprite-container"></div>
+              <div class="table-container">
+                <table class="table">
+                  <tbody id="data-container"></tbody>
+                </table>
+              </div>
             </div>
           </div>
 
@@ -126,18 +126,18 @@
 
     <main>
       <div class="container">
-        <div class="visually-hidden row px-3 py-2" id="page-loading">
+        <div class="row px-3 py-2 visually-hidden invisible" id="page-loading">
           <div class="d-flex align-items-center gap-3 p-4 border border-secondary">
-            <img src="img/page-loading.gif" alt="" />
+            <img src="img/page-loading.gif" alt="Gif of page loading" />
             <span class="text-secondary">Loading list of Pokémon ...</span>
           </div>
         </div>
 
         <div class="row px-3 py-2" id="card-container"></div>
 
-        <div class="row px-3 visually-hidden" id="error-card-container">
+        <div class="row px-3 visually-hidden invisible" id="error-card-container">
           <div class="col-12">
-            <div class="p-2 error-card">
+            <div class="p-2" id="error-card">
               <h4 class="m-1 p-1">No Pokémon matches your search!</h4>
               <p class="m-1 p-1">
                 Try using the <strong>autocomplete suggestions</strong> if you don't remember the
@@ -148,7 +148,7 @@
         </div>
 
         <div class="row py-4">
-          <nav aria-label="pokemon-pages" class="d-flex justify-content-center">
+          <nav class="d-flex justify-content-center" aria-label="pokemon-pages">
             <ul class="pagination rounded">
               <li class="page-item">
                 <button class="page-link" aria-label="Previous" id="prev-page">

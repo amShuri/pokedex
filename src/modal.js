@@ -1,4 +1,3 @@
-const $pokemonModal = document.querySelector('.modal-pokemon');
 let pickedPokemon;
 
 $cardContainer.addEventListener('click', (e) => {
@@ -6,9 +5,8 @@ $cardContainer.addEventListener('click', (e) => {
   if (!$pokemonCard) return;
 
   pickedPokemon = $pokemonCard.querySelector('.name').textContent;
-
-  removeContent('.modal-pokemon');
-  removeContent('.modal-sprite');
+  removeContent('#modal-pokemon');
+  removeContent('#modal-sprite');
   renderPokemonModal();
 });
 
@@ -17,9 +15,7 @@ async function renderPokemonModal() {
     showElement('#modal-loading');
 
     const pokemonData = await getPokemonData(pickedPokemon);
-    const pokemonSprite = getPokemonSprite(pokemonData.number);
-
-    createPokemonModal(pokemonData, pokemonSprite);
+    createPokemonModal(pokemonData);
   } catch (error) {
     console.log(error);
   } finally {
@@ -50,8 +46,8 @@ async function getPokemonData(pokemonName) {
   return pokemonData;
 }
 
-function createPokemonModal(pokemonData, pokemonSprite) {
-  createPokemonSprite(pokemonSprite);
+function createPokemonModal(pokemonData) {
+  const $table = document.querySelector('tbody');
 
   Object.keys(pokemonData).forEach((key) => {
     const $tableRow = document.createElement('tr');
@@ -68,18 +64,22 @@ function createPokemonModal(pokemonData, pokemonSprite) {
     }
 
     $tableRow.append($titleCell, $dataCell);
-    $pokemonModal.appendChild($tableRow);
+    $table.appendChild($tableRow);
   });
+
+  createPokemonSprite(pokemonData.name, pokemonData.number);
 }
 
-function createPokemonSprite(spriteUrl) {
-  const $modalSprite = document.querySelector('.modal-sprite');
-  const $sprite = document.createElement('img');
+function createPokemonSprite(pokemonName, pokemonNumber) {
+  const spriteUrl = getPokemonSprite(pokemonNumber);
+  const $spriteContainer = document.querySelector('#sprite-container');
+  const $spriteImg = document.createElement('img');
 
-  $sprite.src = spriteUrl;
-  $sprite.className = 'img-fluid modal-sprite';
+  $spriteImg.src = spriteUrl;
+  $spriteImg.classList.add('modal-sprite', 'img-fluid');
+  $spriteImg.alt = `Sprite of ${pokemonName}`;
 
-  $modalSprite.appendChild($sprite);
+  $spriteContainer.appendChild($spriteImg);
 }
 
 function populateContent($element, propertyName, propertyValue) {
@@ -131,3 +131,8 @@ function getPokemonHeldItems(pokemonProperties) {
   const itemList = pokemonProperties.map((pokemonItem) => pokemonItem.item.name);
   return itemList.length > 0 ? itemList : 'no held items';
 }
+
+function getPokemonSprite(pokemonNumber) {
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonNumber}.png`;
+}
+

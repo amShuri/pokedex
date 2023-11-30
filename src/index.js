@@ -1,6 +1,6 @@
 const API_URL = 'https://pokeapi.co/api/v2';
 const $cardContainer = document.querySelector('#card-container');
-let pokemonPerPage = 12;
+let pokemonPerPage = 16;
 let pageOffset = 0;
 
 document.addEventListener('DOMContentLoaded', renderPokemonPage);
@@ -34,7 +34,7 @@ async function renderPokemonPage() {
     pokemonList.forEach((pokemon) => {
       const pokemonName = pokemon.name;
       const pokemonNumber = getPokemonNumber(pokemon.url);
-      const pokemonSprite = getPokemonSprite(pokemonNumber);
+      const pokemonSprite = getPokemonCardSprite(pokemonNumber);
 
       createPokemonCard(pokemonName, pokemonNumber, pokemonSprite);
     });
@@ -72,8 +72,8 @@ function getPokemonNumber(pokemonUrl) {
   return pokemonUrl.match(/\/[0-9]+\//)[0].replaceAll('/', '');
 }
 
-function getPokemonSprite(pokemonNumber) {
-  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonNumber}.png`;
+function getPokemonCardSprite(pokemonNumber) {
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonNumber}.png`;
 }
 
 function removeContent(element) {
@@ -83,11 +83,11 @@ function removeContent(element) {
 function showElement(element) {
   const $elementToShow = document.querySelector(element);
 
-  $elementToShow.classList.remove('visually-hidden');
+  $elementToShow.classList.remove('visually-hidden', 'invisible');
 }
 
 function hideElement(element) {
   const $elementToHide = document.querySelector(element);
 
-  $elementToHide.classList.add('visually-hidden');
+  $elementToHide.classList.add('visually-hidden', 'invisible');
 }

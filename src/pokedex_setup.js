@@ -18,7 +18,7 @@ function mapPokemonByName(pokemonList) {
   for (const pokemon of Object.values(pokemonList)) {
     const pokemonName = pokemon.name;
     const pokemonNumber = getPokemonNumber(pokemon.url);
-    const pokemonSprite = getPokemonSprite(pokemonNumber);
+    const pokemonSprite = getPokemonCardSprite(pokemonNumber);
 
     pokemonByName[pokemonName] = {
       name: pokemonName,
