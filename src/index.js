@@ -52,15 +52,15 @@ function createPokemonCard(pokemonName, pokemonNumber, pokemonSprite) {
     'beforeend',
     `
     <div class="col-lg-3 col-md-4 col-sm-4 col-6">
-      <a href="#" data-bs-toggle="modal" data-bs-target="#modal-pokemon">
-        <div class="pokemon-card">
-          <img class="img-fluid" src="${pokemonSprite}" alt="Sprite of ${pokemonName}" />
+      <div class="pokemon-card">
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-pokemon">
+          <img class="img-fluid" src="${pokemonSprite}" alt="Pokémon Sprite" />
           <div class="pokemon-info">
-            <p class="number">#${paddedNumber}</p>
+            <span class="number" aria-hidden="true">#${paddedNumber}</span>
             <h5 class="name">${pokemonName}</h5>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
     `
   );
