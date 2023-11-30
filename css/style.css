@@ -29,13 +29,14 @@ body {
 #card-container a {
   text-align: center;
   text-decoration: none;
+  display: block;
+  padding: 1rem;
 }
 
 .pokemon-card {
   background-color: rgb(238, 238, 238);
   border-radius: 6px;
   height: 100%;
-  padding: 1rem;
   transition: ease-out 0.4s;
 }
 
