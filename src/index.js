@@ -52,7 +52,7 @@ function createPokemonCard(pokemonName, pokemonNumber, pokemonSprite) {
     'beforeend',
     `
     <div class="col-lg-3 col-md-4 col-sm-4 col-6">
-      <div class="pokemon-card">
+      <div class="pokemon-card" data-pokemon-number="${pokemonNumber}">
         <a href="#" data-bs-toggle="modal" data-bs-target="#modal-pokemon">
           <img class="img-fluid" src="${pokemonSprite}" alt="Pokémon Sprite" />
           <div class="pokemon-info">

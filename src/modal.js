@@ -4,14 +4,14 @@ $cardContainer.addEventListener('click', (e) => {
   const $pokemonCard = e.target.closest('.pokemon-card');
   if (!$pokemonCard) return;
 
-  pickedPokemon = $pokemonCard.querySelector('.name').textContent;
+  pickedPokemon = $pokemonCard.dataset.pokemonNumber;
 
   renderPokemonModal();
 });
 
 async function renderPokemonModal() {
   try {
-    hideElement('#pokemon-data');
+    hideElement('#modal-data');
     showElement('#modal-loading');
 
     const pokemonData = await getPokemonData(pickedPokemon);
@@ -19,20 +19,20 @@ async function renderPokemonModal() {
   } catch (error) {
     console.log(error);
   } finally {
-    showElement('#pokemon-data');
+    showElement('#modal-data');
     hideElement('#modal-loading');
   }
 }
 
-async function getPokemonData(pokemonName) {
-  const cacheKey = `pokemon_${pokemonName}`;
+async function getPokemonData(pokemonNumber) {
+  const cacheKey = `pokemon_${pokemonNumber}`;
   const cachedPokemon = localStorage.getItem(cacheKey);
 
   if (cachedPokemon) {
     return JSON.parse(cachedPokemon);
   }
 
-  const pokemon = await fetchJson(`${API_URL}/pokemon/${pokemonName}`);
+  const pokemon = await fetchJson(`${API_URL}/pokemon/${pokemonNumber}`);
   const pokemonData = {
     name: pokemon.name,
     number: pokemon.id,
@@ -71,17 +71,16 @@ function createPokemonModal(pokemonData) {
     $table.appendChild($tableRow);
   });
 
-  createPokemonSprite(pokemonData.name, pokemonData.number);
+  createPokemonSprite(pickedPokemon);
 }
 
-function createPokemonSprite(pokemonName, pokemonNumber) {
+function createPokemonSprite(pokemonNumber) {
   const spriteUrl = getPokemonSprite(pokemonNumber);
-  const $spriteContainer = document.querySelector('#sprite-container');
+  const $spriteContainer = document.querySelector('#pokemon-sprite');
   const $spriteImg = document.createElement('img');
 
   $spriteImg.src = spriteUrl;
   $spriteImg.classList.add('modal-sprite', 'img-fluid');
-  $spriteImg.alt = `Sprite of ${pokemonName}`;
 
   $spriteContainer.appendChild($spriteImg);
 }
