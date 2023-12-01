@@ -57,6 +57,7 @@ body {
 }
 
 .pokemon-info .name {
+  font-size: 1.15rem;
   color: rgb(85, 85, 85);
   font-family: 'Yaldevi', sans-serif;
   font-weight: bold;
@@ -120,13 +121,10 @@ body {
 /* Modal Start */
 .modal-dialog {
   max-width: 670px;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
-.modal-body {
-  align-items: center;
-  display: flex;
-  gap: 0.5rem;
+.modal-content {
   text-transform: capitalize;
 }
 
@@ -155,6 +153,10 @@ td {
   display: inline-block;
   margin-right: 4px;
   padding: 0.2rem 0.5rem;
+}
+
+#table-container {
+  flex: 1 !important;
 }
 /* Modal End */
 
@@ -236,14 +238,22 @@ td {
 }
 
 /* Media Queries Start */
-@media (max-width: 600px) {
-  .col-sm-4 {
-    width: 50%;
+@media (max-width: 700px) {
+  .modal-dialog {
+    justify-content: center;
   }
 
-  .modal-body {
+  .modal-content {
+    width: 400px;
+  }
+
+  #modal-data {
     flex-direction: column;
-    align-items: unset;
+    align-items: unset !important;
+  }
+
+  #pokemon-sprite {
+    align-self: center;
   }
 }
 
