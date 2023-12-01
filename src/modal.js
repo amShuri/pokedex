@@ -92,7 +92,7 @@ function populateContent($element, propertyName, propertyValue) {
     const paddedNumber = propertyValue.toString().padStart(4, '0');
     $dataCell.textContent = paddedNumber;
   } else {
-    $dataCell.textContent = propertyValue;
+    $dataCell.textContent = propertyValue.replaceAll('-', ' ');
   }
 }
 

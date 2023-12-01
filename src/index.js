@@ -57,7 +57,7 @@ function createPokemonCard(pokemonName, pokemonNumber, pokemonSprite) {
           <img class="img-fluid" src="${pokemonSprite}" alt="Pokémon Sprite" />
           <div class="pokemon-info">
             <span class="number" aria-hidden="true">#${paddedNumber}</span>
-            <h5 class="name">${pokemonName}</h5>
+            <h5 class="name">${pokemonName.replaceAll('-', ' ')}</h5>
           </div>
         </a>
       </div>
