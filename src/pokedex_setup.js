@@ -15,7 +15,7 @@ getPokemonList().then((list) => {
 function mapPokemonByName(pokemonList) {
   const pokemonByName = {};
 
-  for (const pokemon of Object.values(pokemonList)) {
+  Object.values(pokemonList).forEach((pokemon) => {
     const pokemonName = pokemon.name;
     const pokemonNumber = getPokemonNumber(pokemon.url);
     const pokemonSprite = getPokemonCardSprite(pokemonNumber);
@@ -25,7 +25,7 @@ function mapPokemonByName(pokemonList) {
       number: pokemonNumber,
       sprite: pokemonSprite,
     };
-  }
+  });
 
   return pokemonByName;
 }
