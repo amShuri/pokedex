@@ -135,9 +135,9 @@
 
         <div class="row px-3 py-2" id="card-container"></div>
 
-        <div class="row px-3 visually-hidden invisible" id="error-card-container">
+        <div class="row px-3 visually-hidden invisible" id="error-container">
           <div class="col-12">
-            <div class="p-2" id="error-card">
+            <div class="p-2" id="error-msg">
               <h4 class="m-1 p-1">No Pokémon matches your search!</h4>
               <p class="m-1 p-1">
                 Try using the <strong>autocomplete suggestions</strong> if you don't remember the
@@ -149,7 +149,7 @@
 
         <div class="row py-4">
           <nav class="d-flex justify-content-center" aria-label="pokemon-pages">
-            <ul class="pagination rounded">
+            <ul class="pagination rounded" id="page-buttons">
               <li class="page-item">
                 <button class="page-link" aria-label="Previous" id="prev-page">
                   <span aria-hidden="true">&laquo;</span>
@@ -168,6 +168,12 @@
                 <button class="page-link" aria-label="Next" id="next-page">
                   <span aria-hidden="true">&raquo;</span>
                 </button>
+              </li>
+            </ul>
+
+            <ul class="pagination rounded visually-hidden invisible" id="back-container">
+              <li class="page-item">
+                <button class="page-link" id="back-btn"></button>
               </li>
             </ul>
           </nav>

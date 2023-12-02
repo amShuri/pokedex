@@ -69,11 +69,11 @@ body {
   font-size: 0.85rem;
 }
 
-#error-card {
+#error-msg {
   border: 1px solid rgb(235, 35, 35);
 }
 
-#error-card h4 {
+#error-msg h4 {
   color: rgb(215, 29, 29);
 }
 /* Pokemon Card End */
