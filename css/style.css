@@ -14,10 +14,6 @@ body {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
   color: rgb(255, 255, 255);
 }
-
-#header-navbar h2 {
-  font-size: 1.8rem;
-}
 /* Header End */
 
 /* Pokemon Card Start */
@@ -254,6 +250,16 @@ td {
 
   #pokemon-sprite {
     align-self: center;
+  }
+}
+
+@media (max-width: 476px) {
+  #navbar-logo {
+    display: none !important;
+  }
+
+  #header-navbar .container {
+    justify-content: center !important;
   }
 }
 
