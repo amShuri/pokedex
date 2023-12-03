@@ -16,9 +16,8 @@ function handleSearch() {
   matchedPokemon = getMatchedPokemon(pokemonMap, $searchBar.value);
 
   if (!matchedPokemon.length) {
-    showElement('#error-container');
+    displayInvalidSearchError();
   } else {
-    hideElement('#error-container');
     renderPokemonCards($searchBar.value);
   }
 
@@ -49,8 +48,19 @@ function initBackButton() {
   $backBtn.addEventListener('click', () => {
     showElement('#page-buttons');
     hideElement('#back-container');
-    hideElement('#error-container');
     removeContent('#card-container');
     renderPokemonPage();
   });
+}
+
+function displayInvalidSearchError() {
+  $cardContainer.insertAdjacentHTML(
+    'beforeend',
+    `
+    <div class="p-2" id="error-msg" role="alert">
+      <h4 class="m-1 p-1">Search results for: ${$searchBar.value}</h4>
+      <strong class="m1 p-2">Found ${matchedPokemon.length} matches.</strong>
+    </div>
+    `
+  );
 }
