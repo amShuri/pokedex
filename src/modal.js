@@ -37,8 +37,8 @@ async function getPokemonData(pokemonNumber) {
     name: pokemon.name,
     number: pokemon.id,
     type: getPokemonType(pokemon.types),
-    height: `${pokemon.height / 10}m`,
-    weight: `${pokemon.weight / 10}kg`,
+    height: convertUnit(pokemon.height, 'm'),
+    weight: convertUnit(pokemon.weight, 'kg'),
     abilities: getPokemonAbilities(pokemon.abilities),
     ['held items']: getPokemonHeldItems(pokemon.held_items),
   };
@@ -115,6 +115,11 @@ function populateArrayContent($element, propertyName, propertyValues) {
   });
 }
 
+function removeModalContent() {
+  removeContent('#pokemon-details');
+  removeContent('#pokemon-sprite');
+}
+
 // Helper functions to get specific Pokémon data.
 function getPokemonAbilities(pokemonProperties) {
   return pokemonProperties.map((pokemonAbility) => {
@@ -139,7 +144,8 @@ function getPokemonSprite(pokemonNumber) {
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonNumber}.png`;
 }
 
-function removeModalContent() {
-  removeContent('#pokemon-details');
-  removeContent('#pokemon-sprite');
+// Convert the API values (in decimeters) to meters.
+function convertUnit(value, unit) {
+  const LENGTH_SCALE = 10;
+  return `${value / LENGTH_SCALE} ${unit}`;
 }
