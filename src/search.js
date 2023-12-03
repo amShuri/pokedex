@@ -49,6 +49,7 @@ function initBackButton() {
   $backBtn.addEventListener('click', () => {
     showElement('#page-buttons');
     hideElement('#back-container');
+    hideElement('#error-container');
     removeContent('#card-container');
     renderPokemonPage();
   });
