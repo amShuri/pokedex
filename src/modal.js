@@ -35,7 +35,7 @@ async function getPokemonData(pokemonNumber) {
   const pokemon = await fetchJson(`${API_URL}/pokemon/${pokemonNumber}`);
   const pokemonData = {
     name: pokemon.name,
-    number: pokemon.id,
+    number: getPokemonNumber(pokemon.species.url),
     type: getPokemonType(pokemon.types),
     height: convertUnit(pokemon.height, 'm'),
     weight: convertUnit(pokemon.weight, 'kg'),
