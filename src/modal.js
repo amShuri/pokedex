@@ -75,7 +75,7 @@ function createPokemonModal(pokemonData) {
 }
 
 function createPokemonSprite(pokemonNumber) {
-  const spriteUrl = getPokemonSprite(pokemonNumber);
+  const spriteUrl = getPokemonSprite(pokemonNumber, true);
   const $spriteContainer = document.querySelector('#pokemon-sprite');
   const $spriteImg = document.createElement('img');
 
@@ -138,10 +138,6 @@ function getPokemonType(pokemonProperties) {
 function getPokemonHeldItems(pokemonProperties) {
   const itemList = pokemonProperties.map((pokemonItem) => pokemonItem.item.name);
   return itemList.length > 0 ? itemList : 'no held items';
-}
-
-function getPokemonSprite(pokemonNumber) {
-  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonNumber}.png`;
 }
 
 // Convert the API values (in decimeters) to meters.
