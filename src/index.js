@@ -28,6 +28,7 @@ async function getPokemonList(limit = 100000, offset = 0) {
 async function renderPokemonPage() {
   try {
     showElement('#page-loading');
+    hideElement('#card-container');
 
     const pokemonList = await getPokemonList(pokemonPerPage, pageOffset);
 
@@ -42,11 +43,15 @@ async function renderPokemonPage() {
     console.log(error);
   } finally {
     hideElement('#page-loading');
+    showElement('#card-container');
   }
 }
 
 function createPokemonCard(pokemonName, pokemonNumber, pokemonSprite) {
   const paddedNumber = pokemonNumber.padStart(4, '0');
+  if ($cardContainer.children.length >= pokemonPerPage) {
+    removeContent('#card-container');
+  }
 
   $cardContainer.insertAdjacentHTML(
     'beforeend',
