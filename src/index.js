@@ -34,7 +34,7 @@ async function renderPokemonPage() {
     pokemonList.forEach((pokemon) => {
       const pokemonName = pokemon.name;
       const pokemonNumber = getPokemonNumber(pokemon.url);
-      const pokemonSprite = getPokemonCardSprite(pokemonNumber);
+      const pokemonSprite = getPokemonSprite(pokemonNumber);
 
       createPokemonCard(pokemonName, pokemonNumber, pokemonSprite);
     });
@@ -72,8 +72,11 @@ function getPokemonNumber(pokemonUrl) {
   return pokemonUrl.match(/\/[0-9]+\//)[0].replaceAll('/', '');
 }
 
-function getPokemonCardSprite(pokemonNumber) {
-  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonNumber}.png`;
+function getPokemonSprite(pokemonNumber, isForModal = false) {
+  const pageSprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonNumber}.png`;
+  const modalSprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonNumber}.png`;
+
+  return isForModal ? modalSprite : pageSprite;
 }
 
 function removeContent(element) {
