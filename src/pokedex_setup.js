@@ -16,7 +16,7 @@ function mapPokemonByName(pokemonList) {
   const pokemonByName = {};
 
   Object.values(pokemonList).forEach((pokemon) => {
-    const pokemonName = pokemon.name.replaceAll('-', ' ');
+    const pokemonName = pokemon.name;
     const pokemonNumber = getPokemonNumber(pokemon.url);
     const pokemonSprite = getPokemonSprite(pokemonNumber);
 

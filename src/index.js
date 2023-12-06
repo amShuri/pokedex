@@ -19,7 +19,7 @@ async function getPokemonList(limit = 100000, offset = 0) {
     return JSON.parse(cachedData);
   }
 
-  const pokemonList = await fetchJson(`${API_URL}/pokemon?limit=${limit}&offset=${offset}`);
+  const pokemonList = await fetchJson(`${API_URL}/pokemon-species?limit=${limit}&offset=${offset}`);
   localStorage.setItem(cacheKey, JSON.stringify(pokemonList.results));
 
   return pokemonList.results;
@@ -62,7 +62,7 @@ function createPokemonCard(pokemonName, pokemonNumber, pokemonSprite) {
           <img class="img-fluid" src="${pokemonSprite}" alt="Pokémon Sprite" />
           <div class="pokemon-info">
             <span class="number" aria-hidden="true">#${paddedNumber}</span>
-            <h5 class="name">${pokemonName.replaceAll('-', ' ')}</h5>
+            <h5 class="name">${pokemonName}</h5>
           </div>
         </a>
       </div>
