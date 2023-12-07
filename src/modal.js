@@ -15,6 +15,8 @@ async function renderPokemonModal() {
     showElement('#modal-loading');
 
     const pokemonData = await getPokemonData(pickedPokemon);
+
+    removeModalContent();
     createPokemonModal(pokemonData);
   } catch (error) {
     console.log(error);
@@ -49,9 +51,6 @@ async function getPokemonData(pokemonNumber) {
 }
 
 function createPokemonModal(pokemonData) {
-  // Empty the modal before populating it
-  removeModalContent();
-
   const $table = document.querySelector('tbody');
 
   Object.keys(pokemonData).forEach((key) => {

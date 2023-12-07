@@ -2,6 +2,7 @@ const API_URL = 'https://pokeapi.co/api/v2';
 const $cardContainer = document.querySelector('#card-container');
 let pokemonPerPage = 16;
 let pageOffset = 0;
+let counter = 0;
 
 document.addEventListener('DOMContentLoaded', renderPokemonPage);
 
@@ -31,6 +32,7 @@ async function renderPokemonPage() {
     hideElement('#card-container');
 
     const pokemonList = await getPokemonList(pokemonPerPage, pageOffset);
+    removeContent('#card-container');
 
     pokemonList.forEach((pokemon) => {
       const pokemonName = pokemon.name;
@@ -49,9 +51,6 @@ async function renderPokemonPage() {
 
 function createPokemonCard(pokemonName, pokemonNumber, pokemonSprite) {
   const paddedNumber = pokemonNumber.padStart(4, '0');
-  if ($cardContainer.children.length >= pokemonPerPage) {
-    removeContent('#card-container');
-  }
 
   $cardContainer.insertAdjacentHTML(
     'beforeend',
