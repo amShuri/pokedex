@@ -2,7 +2,6 @@ const API_URL = 'https://pokeapi.co/api/v2';
 const $cardContainer = document.querySelector('#card-container');
 let pokemonPerPage = 16;
 let pageOffset = 0;
-let counter = 0;
 
 document.addEventListener('DOMContentLoaded', renderPokemonPage);
 
