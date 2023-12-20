@@ -1,6 +1,6 @@
 let pickedPokemon;
 
-$cardContainer.addEventListener('click', (e) => {
+$pageCards.addEventListener('click', (e) => {
   const $pokemonCard = e.target.closest('.pokemon-card');
   if (!$pokemonCard) return;
 
