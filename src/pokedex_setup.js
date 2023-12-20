@@ -8,7 +8,7 @@ getPokemonList().then((list) => {
   pokemonMap = mapPokemonByName(list);
   totalPages = Math.ceil(list.length / pokemonPerPage);
 
-  initPagination();
+  showPageInfo();
   initPokemonSearch();
 });
 
@@ -16,15 +16,8 @@ function mapPokemonByName(pokemonList) {
   const pokemonByName = {};
 
   Object.values(pokemonList).forEach((pokemon) => {
-    const pokemonName = pokemon.name;
-    const pokemonNumber = getPokemonNumber(pokemon.url);
-    const pokemonSprite = getPokemonSprite(pokemonNumber);
-
-    pokemonByName[pokemonName] = {
-      name: pokemonName,
-      number: pokemonNumber,
-      sprite: pokemonSprite,
-    };
+    const { name, url } = pokemon;
+    pokemonByName[pokemon.name] = { name, url };
   });
 
   return pokemonByName;

@@ -1,29 +1,21 @@
-let pickedPokemon;
+const $modal = document.querySelector('.modal-body');
 
-$cardContainer.addEventListener('click', (e) => {
+$pageCards.addEventListener('click', (e) => {
   const $pokemonCard = e.target.closest('.pokemon-card');
-  if (!$pokemonCard) return;
-
-  pickedPokemon = $pokemonCard.dataset.pokemonNumber;
-
-  renderPokemonModal();
+  if ($pokemonCard) {
+    const pokemonNumber = $pokemonCard.dataset.number;
+    displayModal(pokemonNumber);
+  }
 });
 
-async function renderPokemonModal() {
-  try {
-    hideElement('#modal-data');
-    showElement('#modal-loading');
+async function displayModal(pokemonNumber) {
+  showModalLoading();
+  const pokemonData = await getPokemonData(pokemonNumber);
+  populateModal(pokemonData, getPokemonSprite(pokemonNumber, true));
 
-    const pokemonData = await getPokemonData(pickedPokemon);
-
-    removeModalContent();
-    createPokemonModal(pokemonData);
-  } catch (error) {
-    console.log(error);
-  } finally {
-    showElement('#modal-data');
-    hideElement('#modal-loading');
-  }
+  showFormsLoading();
+  const pokemonForms = await getPokemonSpecies(pokemonData.forms);
+  populateFormsRow(pokemonForms, displayModal);
 }
 
 async function getPokemonData(pokemonNumber) {
@@ -37,125 +29,93 @@ async function getPokemonData(pokemonNumber) {
   const pokemon = await fetchJson(`${API_URL}/pokemon/${pokemonNumber}`);
   const pokemonData = {
     name: pokemon.name,
-    number: getPokemonNumber(pokemon.species.url),
+    number: getPokemonNumber(pokemon.species.url).padStart(4, '0'),
     type: getPokemonType(pokemon.types),
     height: convertUnit(pokemon.height, 'm'),
     weight: convertUnit(pokemon.weight, 'kg'),
     abilities: getPokemonAbilities(pokemon.abilities),
     ['held items']: getPokemonHeldItems(pokemon.held_items),
-    forms: await getPokemonForms(pokemon.species.name),
+    forms: pokemon.species.name,
   };
 
   localStorage.setItem(cacheKey, JSON.stringify(pokemonData));
   return pokemonData;
 }
 
-function createPokemonModal(pokemonData) {
-  const $table = document.querySelector('tbody');
+async function getPokemonSpecies(pokemonName) {
+  const cacheKey = `species_${pokemonName}`;
+  const cachedPokemon = localStorage.getItem(cacheKey);
 
-  Object.keys(pokemonData).forEach((key) => {
-    const $tableRow = document.createElement('tr');
-    const $titleCell = document.createElement('th');
-    const $dataCell = document.createElement('td');
-    const dataProperty = key;
-    const dataValues = pokemonData[key];
+  if (cachedPokemon) {
+    return JSON.parse(cachedPokemon);
+  }
 
-    $titleCell.scope = 'row';
-    $titleCell.textContent = dataProperty;
+  const pokemon = await fetchJson(`${API_URL}/pokemon-species/${pokemonName}`);
+  const pokemonForms = getPokemonForms(pokemon.varieties);
 
-    if (!Array.isArray(dataValues)) {
-      populateContent($dataCell, dataProperty, dataValues);
-    } else {
-      populateArrayContent($dataCell, dataProperty, dataValues);
-    }
-
-    $tableRow.append($titleCell, $dataCell);
-    $table.appendChild($tableRow);
-  });
-
-  createPokemonSprite(pickedPokemon);
+  localStorage.setItem(cacheKey, JSON.stringify(pokemonForms));
+  return pokemonForms;
 }
 
-function createPokemonSprite(pokemonNumber) {
-  const spriteUrl = getPokemonSprite(pokemonNumber, true);
-  const $spriteContainer = document.querySelector('#pokemon-sprite');
-  const $spriteImg = document.createElement('img');
+function populateModal(pokemonData, spriteUrl) {
+  $modal.textContent = '';
+  $modal.insertAdjacentHTML(
+    'beforeend',
+    `
+    <img src="${spriteUrl}" class="img-fluid" id="modal-img">
+    <table class="table m-0">
+      <tbody id="modal-table"></tbody>
+    </table>
+    `
+  );
 
-  $spriteImg.src = spriteUrl;
-  $spriteImg.classList.add('modal-sprite', 'img-fluid');
-
-  $spriteContainer.appendChild($spriteImg);
-}
-
-function populateContent($element, property, propertyValues) {
-  const $dataCell = $element;
-  const NUMBER_PROPERTY = 'number';
-
-  if (property === NUMBER_PROPERTY) {
-    const paddedNumber = propertyValues.toString().padStart(4, '0');
-    $dataCell.textContent = paddedNumber;
-  } else {
-    $dataCell.textContent = propertyValues;
+  for (const property in pokemonData) {
+    const values = pokemonData[property];
+    document.querySelector('#modal-table').insertAdjacentHTML(
+      'beforeend',
+      `
+      <tr>
+        <th scope="row" class="text-secondary">${property}</th>
+        <td class="${property}">
+          ${Array.isArray(values) ? createArrayContent(values) : values}
+        </td>
+      </tr>
+      `
+    );
   }
 }
 
-function populateArrayContent($element, property, propertyValues) {
-  const $dataCell = $element;
-  const TYPE_PROPERTY = 'type';
-  const FORMS_PROPERTY = 'forms';
+function populateFormsRow(pokemonForms, updateModalCallback) {
+  const $forms = document.querySelector('.forms');
+  $forms.textContent = '';
 
-  // The 'forms' property will always be an array. It is the only property that uses the <a>
-  // HTML element because it links to other pokemon, so this conditional is necessary.
-  if (property === FORMS_PROPERTY) {
-    $dataCell.classList.add(property);
-    setupEventListeners($dataCell);
-
-    propertyValues.forEach((propertyValue) => {
-      const { name, number, is_default } = propertyValue;
-      const $formLink = createPokemonLink(name, number, is_default);
-
-      $dataCell.appendChild($formLink);
-    });
-  } else {
-    propertyValues.forEach((propertyValue) => {
-      const $pokemonInfo = document.createElement('span');
-
-      // Replace hyphens with a white-space for better readability.
-      // (The API uses hyphens to separate words in properties).
-      $pokemonInfo.textContent = propertyValue.replaceAll('-', ' ');
-
-      // Set specific classes for each Pokémon type to apply individual styles.
-      property === TYPE_PROPERTY
-        ? $pokemonInfo.classList.add(property, propertyValue)
-        : $pokemonInfo.classList.add('d-block');
-
-      $dataCell.appendChild($pokemonInfo);
-    });
+  if (pokemonForms.length <= 1) {
+    $forms.textContent = 'no additional forms';
+    return;
   }
-}
 
-function createPokemonLink(formName, formNumber, formDefault) {
-  const $link = document.createElement('a');
-  $link.href = '#';
-  $link.dataset.number = formNumber;
-  $link.textContent = formDefault ? `${formName} (default)` : formName;
-  $link.classList.add('link-secondary', 'link-offset-2', 'link-underline-opacity-50');
-  return $link;
-}
+  pokemonForms.forEach((form) => {
+    $forms.insertAdjacentHTML(
+      'beforeend',
+      `
+      <a href='#' class="text-secondary link-offset-2" data-number="${form.number}">${form.name}</a>
+      `
+    );
+  });
 
-function setupEventListeners(formsElement) {
-  formsElement.addEventListener('click', (e) => {
-    if (e.target.tagName !== 'A' || pickedPokemon === e.target.dataset.number) return;
+  $forms.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (event.target.tagName !== 'A') return;
 
-    pickedPokemon = e.target.dataset.number;
+    const pokemonNumber = event.target.dataset.number;
 
-    renderPokemonModal();
+    updateModalCallback(pokemonNumber);
   });
 }
 
-function removeModalContent() {
-  removeContent('#pokemon-details');
-  removeContent('#pokemon-sprite');
+function createArrayContent(pokemonInfo) {
+  const html = pokemonInfo.map((info) => `<div class="${info}">${info}</div>`);
+  return html.join('');
 }
 
 // Helper functions to get specific Pokémon data.
@@ -178,20 +138,11 @@ function getPokemonHeldItems(pokemonProperties) {
   return itemList.length > 0 ? itemList : 'no held items';
 }
 
-async function getPokemonForms(pokemonName) {
-  const pokemonForm = await fetchJson(`${API_URL}/pokemon-species/${pokemonName}`);
-  if (pokemonForm.varieties.length === 1) return 'no additional forms';
-
-  return pokemonForm.varieties.map((form) => {
-    const name = form.pokemon.name;
-    const number = getPokemonNumber(form.pokemon.url);
-    const { is_default } = form;
-
-    return {
-      name,
-      number,
-      is_default,
-    };
+function getPokemonForms(pokemonProperties) {
+  return pokemonProperties.map((pokemonForm) => {
+    const name = pokemonForm.pokemon.name;
+    const number = getPokemonNumber(pokemonForm.pokemon.url);
+    return { name, number };
   });
 }
 
@@ -199,4 +150,21 @@ async function getPokemonForms(pokemonName) {
 function convertUnit(value, unit) {
   const LENGTH_SCALE = 10;
   return `${value / LENGTH_SCALE} ${unit}`;
+}
+
+function showModalLoading() {
+  $modal.textContent = '';
+  $modal.insertAdjacentHTML(
+    'beforeend',
+    `
+    <div class="d-flex align-items-center gap-3 p-2">
+      <div class="spinner-grow text-secondary" role="status"></div>
+      <span class="text-secondary">Loading Pokémon ...</span>
+    </div>
+    `
+  );
+}
+
+function showFormsLoading() {
+  document.querySelector('.forms').textContent = 'Loading...';
 }
