@@ -1,10 +1,10 @@
 let pickedPokemon;
 
-$cardContainer.addEventListener('click', (e) => {
+$pageCards.addEventListener('click', (e) => {
   const $pokemonCard = e.target.closest('.pokemon-card');
   if (!$pokemonCard) return;
 
-  pickedPokemon = $pokemonCard.dataset.pokemonNumber;
+  pickedPokemon = $pokemonCard.dataset.number;
 
   renderPokemonModal();
 });

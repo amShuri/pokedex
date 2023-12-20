@@ -26,7 +26,7 @@ function handlePageChange(button) {
 function changePage() {
   validatePageRange();
   updatePageData();
-  renderPokemonPage();
+  displayPage();
 }
 
 function validatePageRange() {

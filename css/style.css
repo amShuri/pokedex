@@ -16,17 +16,17 @@ body {
 }
 /* Header End */
 
-/* Pokemon Card Start */
-#card-container > div {
+/* Pokemon Page Start */
+#page-cards > div {
   padding: 0.5rem;
   transition: 0.5s;
 }
 
-#card-container a {
-  text-align: center;
-  text-decoration: none;
+#page-cards a {
   display: block;
   padding: 1rem;
+  text-align: center;
+  text-decoration: none;
 }
 
 .pokemon-card {
@@ -41,38 +41,24 @@ body {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-.pokemon-info {
+.card-details {
   margin: 0.5rem 0;
   padding: 0.25rem 0;
 }
 
-.pokemon-info .name,
-.pokemon-info .number {
+.card-details > p {
   letter-spacing: 0.85px;
-  margin: 0;
-}
-
-.pokemon-info .name {
-  font-size: 1.15rem;
-  color: rgb(85, 85, 85);
-  font-family: 'Yaldevi', sans-serif;
-  font-weight: bold;
   text-transform: capitalize;
 }
 
-.pokemon-info .number {
-  color: rgb(136, 136, 136);
+.card-details > p:first-child {
   font-size: 0.85rem;
 }
 
-#error-msg {
-  border: 1px solid rgb(235, 35, 35);
+.card-details > p:last-child {
+  font-size: 1.15rem;
 }
-
-#error-msg h4 {
-  color: rgb(215, 29, 29);
-}
-/* Pokemon Card End */
+/* Pokemon Page End */
 
 /* Search Bar Start */
 #search-form {

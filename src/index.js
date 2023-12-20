@@ -1,9 +1,15 @@
 const API_URL = 'https://pokeapi.co/api/v2';
-const $cardContainer = document.querySelector('#card-container');
+const $pageCards = document.querySelector('#page-cards');
 let pokemonPerPage = 16;
 let pageOffset = 0;
 
-document.addEventListener('DOMContentLoaded', renderPokemonPage);
+displayPage();
+
+async function displayPage() {
+  showPageLoading();
+  const pokemonList = await getPokemonList(pokemonPerPage, pageOffset);
+  createPageCards(pokemonList);
+}
 
 async function fetchJson(url) {
   const res = await fetch(url);
@@ -25,53 +31,35 @@ async function getPokemonList(limit = 100000, offset = 0) {
   return pokemonList.results;
 }
 
-async function renderPokemonPage() {
-  try {
-    showElement('#page-loading');
-    hideElement('#card-container');
+function createPageCards(pokemonList) {
+  $pageCards.textContent = '';
 
-    const pokemonList = await getPokemonList(pokemonPerPage, pageOffset);
-    removeContent('#card-container');
+  pokemonList.forEach((pokemon) => {
+    const pokemonNumber = getPokemonNumber(pokemon.url);
+    const pokemonSprite = getPokemonSprite(pokemonNumber);
+    const paddedNumber = pokemonNumber.padStart(4, '0');
 
-    pokemonList.forEach((pokemon) => {
-      const pokemonName = pokemon.name;
-      const pokemonNumber = getPokemonNumber(pokemon.url);
-      const pokemonSprite = getPokemonSprite(pokemonNumber);
-
-      createPokemonCard(pokemonName, pokemonNumber, pokemonSprite);
-    });
-  } catch (error) {
-    console.log(error);
-  } finally {
-    hideElement('#page-loading');
-    showElement('#card-container');
-  }
-}
-
-function createPokemonCard(pokemonName, pokemonNumber, pokemonSprite) {
-  const paddedNumber = pokemonNumber.padStart(4, '0');
-
-  $cardContainer.insertAdjacentHTML(
-    'beforeend',
-    `
-    <div class="col-lg-3 col-md-4 col-sm-4 col-6">
-      <div class="pokemon-card" data-pokemon-number="${pokemonNumber}">
-        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-pokemon">
-          <img class="img-fluid" src="${pokemonSprite}" alt="Pokémon Sprite" />
-          <div class="pokemon-info">
-            <span class="number" aria-hidden="true">#${paddedNumber}</span>
-            <h5 class="name">${pokemonName}</h5>
-          </div>
-        </a>
+    $pageCards.insertAdjacentHTML(
+      'beforeend',
+      `
+      <div class="col-lg-3 col-md-4 col-sm-4 col-6">
+        <div class="pokemon-card" data-number="${pokemonNumber}">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#modal-pokemon">
+            <img class="img-fluid" src="${pokemonSprite}" alt="Pokémon Sprite" />
+            <div class="card-details">
+              <p class="m-0 text-secondary" aria-hidden="true">#${paddedNumber}</p>
+              <p class="m-0 text-muted fw-bold">${pokemon.name}</p>
+            </div>
+          </a>
+        </div>
       </div>
-    </div>
-    `
-  );
+      `
+    );
+  });
 }
 
-// Get the number from the pokemon's URL (e.g., https://pokeapi.co/api/v2/pokemon/99/)
+// Get the number from the pokemon's URL (e.g., '99' on https://pokeapi.co/api/v2/pokemon/99/)
 function getPokemonNumber(pokemonUrl) {
-  // Match the pattern (e.g., '/99/') and remove the slashes.
   return pokemonUrl.match(/\/[0-9]+\//)[0].replaceAll('/', '');
 }
 
@@ -80,6 +68,19 @@ function getPokemonSprite(pokemonNumber, isForModal = false) {
   const modalSprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonNumber}.png`;
 
   return isForModal ? modalSprite : pageSprite;
+}
+
+function showPageLoading() {
+  $pageCards.textContent = '';
+  $pageCards.insertAdjacentHTML(
+    'beforeend',
+    `
+    <div class="d-flex align-items-center gap-3 p-4 border border-secondary">
+      <img src="img/page-loading.gif" alt="Page loading gif" />
+      <span class="text-secondary">Loading Page ...</span>
+    </div>
+    `
+  );
 }
 
 function removeContent(element) {
