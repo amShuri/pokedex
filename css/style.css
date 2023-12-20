@@ -102,12 +102,8 @@ body {
 
 /* Modal Start */
 .modal-dialog {
-  max-width: 670px;
+  max-width: 700px;
   padding: 0.5rem;
-}
-
-.modal-content {
-  text-transform: capitalize;
 }
 
 .modal-header,
@@ -115,32 +111,25 @@ body {
   background-color: #eee;
 }
 
-.modal-sprite {
+.modal-body > img,
+.modal-body > table {
+  flex: 1;
+}
+
+#modal-img {
   width: 300px;
 }
 
-th {
-  color: rgb(105, 105, 105) !important;
+#modal-table {
+  text-transform: capitalize;
 }
 
-th,
-td {
-  text-wrap: nowrap;
+#modal-table .height,
+#modal-table .weight {
+  text-transform: lowercase;
 }
 
-.forms {
-  display: inline-block;
-  max-height: 120px;
-  overflow-y: auto;
-  width: 100%;
-}
-
-.forms a {
-  display: block;
-  width: max-content;
-}
-
-.type {
+#modal-table .type > div {
   border-radius: 4px;
   border: 1px solid rgb(0, 0, 0, 0.12);
   color: #fff;
@@ -149,12 +138,20 @@ td {
   padding: 0.2rem 0.5rem;
 }
 
-#table-container {
-  flex: 1 !important;
+#modal-table .forms {
+  display: inline-block;
+  max-height: 120px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+#modal-table .forms a {
+  display: block;
+  width: max-content;
 }
 /* Modal End */
 
-/* Types Colors */
+/* Types Colors Start */
 .normal {
   background-color: #c2b7b1;
 }
@@ -230,6 +227,7 @@ td {
 .fairy {
   background-color: #ee99ee;
 }
+/* Types Colors End */
 
 /* Media Queries Start */
 @media (max-width: 700px) {
@@ -241,13 +239,8 @@ td {
     width: 400px;
   }
 
-  #modal-data {
-    flex-direction: column;
-    align-items: unset !important;
-  }
-
-  #pokemon-sprite {
-    align-self: center;
+  .modal-body {
+    flex-wrap: wrap;
   }
 }
 
@@ -257,26 +250,13 @@ td {
   }
 
   #header-navbar .container {
-    justify-content: center !important;
+    justify-content: center;
   }
 }
 
 @media (max-width: 400px) {
   .col-6 {
     width: 100%;
-  }
-
-  .modal-sprite {
-    width: auto;
-  }
-
-  th,
-  td {
-    text-wrap: wrap;
-  }
-
-  .type {
-    margin-bottom: 4px;
   }
 }
 /* Media Queries End */
