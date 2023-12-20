@@ -1,54 +1,56 @@
 const $autocompleteList = document.querySelector('#autocomplete-list');
 
-$searchBar.addEventListener('blur', () => {
-  hideElement('#autocomplete-list');
-});
+$searchBar.addEventListener('blur', hideAutocompleteList);
 
-$searchBar.addEventListener('focus', () => {
-  showElement('#autocomplete-list');
-});
+$searchBar.addEventListener('focus', showAutocompleteList);
 
-$searchBar.addEventListener('input', (e) => {
-  renderAutocompleteList(e.target.value);
+$searchBar.addEventListener('input', (event) => {
+  const searchInput = event.target.value;
+  displayAutocompleteList(searchInput);
 });
 
 $autocompleteList.addEventListener('mousedown', (e) => {
   const $autocompleteOption = e.target.closest('.autocomplete-option');
   if (!$autocompleteOption) return;
 
-  const pickedPokemon = $autocompleteOption.querySelector('input').value;
-  $searchBar.value = pickedPokemon;
+  $searchBar.value = $autocompleteOption.dataset.pokemonName;
 });
 
-function renderAutocompleteList(userInput) {
-  const pokemonNames = Object.keys(pokemonMap);
-  const autocompleteList = getAutocompleteList(pokemonNames, userInput);
+function displayAutocompleteList(userInput) {
+  $autocompleteList.textContent = '';
 
-  removeContent('#autocomplete-list');
+  const autocompleteList = getAutocompleteList(Object.keys(pokemonMap), userInput);
 
   if (autocompleteList) {
     createAutocompleteOptions(autocompleteList);
   }
 }
 
-function getAutocompleteList(pokemonList, userInput) {
+function getAutocompleteList(pokemonNames, userInput) {
   if (!userInput) return;
 
   const lowerCaseInput = new RegExp(userInput, 'i');
 
-  return pokemonList.filter((pokemon) => pokemon.match(lowerCaseInput));
+  return pokemonNames.filter((names) => names.match(lowerCaseInput));
 }
 
-function createAutocompleteOptions(matchedPokemon) {
-  for (let i = 0; i < matchedPokemon.length; i += 1) {
+function createAutocompleteOptions(matchList) {
+  matchList.forEach((match) => {
     $autocompleteList.insertAdjacentHTML(
       'beforeend',
       `
-      <div class="autocomplete-option">
-        <span>${matchedPokemon[i]}</span>
-        <input type="hidden" value="${matchedPokemon[i]}">
+      <div class="autocomplete-option" data-pokemon-name="${match}">
+        <span>${match}</span>
       </div>
       `
     );
-  }
+  });
+}
+
+function showAutocompleteList() {
+  $autocompleteList.classList.remove('visually-hidden', 'invisible');
+}
+
+function hideAutocompleteList() {
+  $autocompleteList.classList.add('visually-hidden', 'invisible');
 }

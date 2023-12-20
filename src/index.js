@@ -82,19 +82,3 @@ function showPageLoading() {
     `
   );
 }
-
-function removeContent(element) {
-  document.querySelector(element).textContent = '';
-}
-
-function showElement(element) {
-  const $elementToShow = document.querySelector(element);
-
-  $elementToShow.classList.remove('visually-hidden', 'invisible');
-}
-
-function hideElement(element) {
-  const $elementToHide = document.querySelector(element);
-
-  $elementToHide.classList.add('visually-hidden', 'invisible');
-}
