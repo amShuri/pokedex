@@ -111,17 +111,17 @@ body {
   background-color: #eee;
 }
 
+.modal-body > img,
+.modal-body > table {
+  flex: 1;
+}
+
 #modal-img {
   width: 300px;
 }
 
 #modal-table {
   text-transform: capitalize;
-}
-
-#modal-img,
-#modal-table {
-  flex: 1;
 }
 
 #modal-table .height,
