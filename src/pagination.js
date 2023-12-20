@@ -1,15 +1,10 @@
-const $prevBtn = document.querySelector('#prev-page');
-const $nextBtn = document.querySelector('#next-page');
-const $pageInfo = document.querySelector('#page-info');
-const $currentPage = document.querySelector('#current-page');
-const $lastPage = document.querySelector('#last-page');
 let currentPage = 1;
 
-$nextBtn.addEventListener('click', () => {
+document.querySelector('#next-page').addEventListener('click', () => {
   handlePageChange('next');
 });
 
-$prevBtn.addEventListener('click', () => {
+document.querySelector('#prev-page').addEventListener('click', () => {
   handlePageChange('previous');
 });
 
@@ -38,11 +33,19 @@ function validatePageRange() {
 }
 
 function updatePageData() {
-  $currentPage.textContent = currentPage;
+  document.querySelector('#current-page').textContent = currentPage;
   pageOffset = pokemonPerPage * (currentPage - 1);
 }
 
-function initPagination() {
-  $currentPage.textContent = currentPage;
-  $lastPage.textContent = totalPages;
+function showPageInfo() {
+  document.querySelector('#pagination-info').insertAdjacentHTML(
+    'beforeend',
+    `
+    <button class="page-link">
+      <span id="current-page">${currentPage}</span>
+      <span>of</span>
+      <span id="last-page">${totalPages}</span>
+    </button>
+    `
+  );
 }

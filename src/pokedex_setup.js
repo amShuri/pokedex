@@ -8,7 +8,7 @@ getPokemonList().then((list) => {
   pokemonMap = mapPokemonByName(list);
   totalPages = Math.ceil(list.length / pokemonPerPage);
 
-  initPagination();
+  showPageInfo();
   initPokemonSearch();
 });
 
