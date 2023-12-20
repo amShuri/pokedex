@@ -1,41 +1,24 @@
-const $form = document.querySelector('#search-form');
 const $searchBar = document.querySelector('#search-bar');
-let matchedPokemon;
 
 function initPokemonSearch() {
-  $form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    handleSearch();
+  document.querySelector('#search-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    handleSearch($searchBar.value);
+    $searchBar.value = '';
   });
 }
 
-function handleSearch() {
-  removeContent('#card-container');
-  removeContent('#autocomplete-list');
-  matchedPokemon = getMatchedPokemon(pokemonMap, $searchBar.value);
+function handleSearch(userInput) {
+  const matchedPokemon = getMatchedPokemon(pokemonMap, userInput);
+  const searchResults = getSearchResults(matchedPokemon);
 
-  if (!matchedPokemon.length) {
-    displayInvalidSearchError();
+  if (!searchResults.length) {
+    displaySearchError(userInput);
   } else {
-    renderPokemonCards($searchBar.value);
+    createPageCards(searchResults);
   }
 
-  $searchBar.value = '';
-  initBackButton();
-}
-
-function renderPokemonCards() {
-  matchedPokemon.forEach((match) => {
-    const { name, number, sprite } = pokemonMap[match];
-    createPokemonCard(name, number, sprite);
-  });
-}
-
-function getMatchedPokemon(pokemonList, userInput) {
-  const lowerCaseInput = new RegExp(userInput, 'i');
-
-  return Object.keys(pokemonList).filter((pokemon) => pokemon.match(lowerCaseInput));
+  $autocompleteList.textContent = '';
 }
 
 function initBackButton() {
@@ -53,13 +36,27 @@ function initBackButton() {
   });
 }
 
-function displayInvalidSearchError() {
-  $cardContainer.insertAdjacentHTML(
+function getSearchResults(matchedPokemon) {
+  return matchedPokemon.map((match) => {
+    const { name, url } = pokemonMap[match];
+    return { name, url };
+  });
+}
+
+function getMatchedPokemon(pokemonList, userInput) {
+  const lowerCaseInput = new RegExp(userInput, 'i');
+
+  return Object.keys(pokemonList).filter((pokemon) => pokemon.match(lowerCaseInput));
+}
+
+function displaySearchError(userInput) {
+  $pageCards.textContent = '';
+  $pageCards.insertAdjacentHTML(
     'beforeend',
     `
-    <div class="p-2" id="error-msg" role="alert">
-      <h4 class="m-1 p-1">Search results for: ${$searchBar.value}</h4>
-      <strong class="m1 p-2">Found ${matchedPokemon.length} matches.</strong>
+    <div class="border border-danger p-3" role="alert">
+      <h1 class="fs-2">Search results for: <em>${userInput}</em></h1>
+      <p class="m-0 "><em>No matches found.</em></p>
     </div>
     `
   );
