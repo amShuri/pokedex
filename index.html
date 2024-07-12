@@ -9,41 +9,55 @@
   </head>
   <h1>Pokedex</h1>
 
-  <div>
-    <span> <<< Pagination Left </span>
-    <span>| Pokemon Name on hover + (pokemon id / amount in page) |</span>
-    <span>Pagination Right >>> </span>
-  </div>
+  <main>
+    <div class="pokemon-nav">
+      <button id="previous-page">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          fill="currentColor"
+          class="bi bi-arrow-left"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+          />
+        </svg>
+      </button>
+      <div id="pokemon-name">
+        [Pokemon Name] <span id="pokemon-id">[Id / Page Length]</span>
+      </div>
+      <button id="next-page">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          fill="currentColor"
+          class="bi bi-arrow-right"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="pokemon-box">
+      <div id="pokemon-list"></div>
+    </div>
+  </main>
 
   <div>
-    <h2>Pokemon Box Here</h2>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-    <p>Pokemon Sprite</p>
-  </div>
-
-  <div>
-    <span>Total Amount of Pages</span>
+    <span id="current-page">1</span> / <span id="total-pages">200</span>
   </div>
 
   <body>
+    <script src="./src/js/ui.js"></script>
+    <script src="./src/js/api.js"></script>
     <script src="./src/js/index.js"></script>
   </body>
 </html>
