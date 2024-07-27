@@ -9,5 +9,5 @@ function getPokemonList(offset, limit) {
 
       return response.json();
     })
-    .catch((err) => err);
+    .catch((err) => console.log(err));
 }
