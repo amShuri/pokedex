@@ -25,3 +25,22 @@ function formatPokemonList(pokemonList) {
     };
   });
 }
+
+function formatPokemonInfo(pokemonInfo) {
+  return {
+    name: pokemonInfo["name"],
+    number: pokemonInfo["id"],
+    height: pokemonInfo["height"],
+    weight: pokemonInfo["weight"],
+    types: pokemonInfo["types"].map((types) => types.type.name),
+    ability: pokemonInfo["abilities"]
+      .map((abilities) => abilities.ability.name)
+      .join(", "),
+    heldItem:
+      pokemonInfo["held_items"].length > 0
+        ? pokemonInfo["held_items"]
+            .map((heldItem) => heldItem.item.name.replace("-", " "))
+            .join(", ")
+        : null,
+  };
+}

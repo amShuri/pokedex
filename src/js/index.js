@@ -3,6 +3,8 @@ function initialize() {
 
   setupPreviousPageButton();
   setupNextPageButton();
+
+  setupPokemonModalButton();
 }
 
 initialize();
