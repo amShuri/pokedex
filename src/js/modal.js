@@ -10,7 +10,6 @@ function setupPokemonModalButton() {
 
     getPokemonInfo(pokemonNumber).then((pokemon) => {
       const pokemonInfo = formatPokemonInfo(pokemon);
-      console.log(pokemonInfo);
       createPokemonModal(pokemonInfo);
     });
   });
