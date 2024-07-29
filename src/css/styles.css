@@ -26,9 +26,26 @@ body {
   align-items: center;
 }
 
-.pokemon-id {
+.pokemon-number {
   font-size: 0.8rem;
   position: absolute;
   right: 5px;
   top: 2px;
+}
+
+.pokemon-list .pokemon-box {
+  cursor: pointer;
+}
+
+.pokemon-box:hover {
+  background-color: #8f82a0a6;
+}
+
+.pokemon-box:active,
+.pokemon-box:focus {
+  background-color: #827297c2;
+}
+
+.pokemon-img {
+  max-width: 200px;
 }
