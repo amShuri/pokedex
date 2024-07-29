@@ -1,3 +1,24 @@
+function displayPokemonList(offset) {
+  const pokemonPerPage = 30;
+    getPokemonList(offset, pokemonPerPage).then((pokemonList) => {
+      storeObjectToLocalStorage(offset, pokemonList);
+      createPokemonList(pokemonList);
+      updatePageBtnOffset(pokemonList);
+      updatePageCount(pokemonList.count, pokemonPerPage, offset);
+    });
+}
+
+function createPokemonList(pokemonList) {
+  const $pokemonContainer = document.querySelector("#pokemon-list");
+  $pokemonContainer.innerHTML = "";
+
+  const formattedList = formatPokemonList(pokemonList.results);
+
+  Object.values(formattedList).forEach((pokemon) => {
+    createPokemonElement(pokemon, $pokemonContainer);
+  });
+}
+
 function createPokemonElement(pokemon, pokemonContainer) {
   const $pokemonEl = document.createElement("div");
   $pokemonEl.classList.add("pokemon-box");

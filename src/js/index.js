@@ -1,5 +1,5 @@
 function initialize() {
-  displayPokemonList();
+  displayPokemonList(0);
 
   setupPreviousPageButton();
   setupNextPageButton();
