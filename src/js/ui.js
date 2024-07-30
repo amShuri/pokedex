@@ -1,5 +1,5 @@
 function displayPokemonList(offset) {
-  const pokemonPerPage = 30;
+  const pokemonPerPage = 24;
   const storedPokemonList = retrieveObjectFromLocalStorage(offset);
 
   if (storedPokemonList) {
@@ -43,7 +43,7 @@ function createPokemonList(pokemonList) {
 
 function createPokemonElement(pokemon, pokemonContainer) {
   const $pokemonEl = document.createElement("div");
-  $pokemonEl.classList.add("pokemon-box");
+  $pokemonEl.classList.add("pokemon-box", "justify-content-evenly");
   $pokemonEl.id = "pokemon-box";
   $pokemonEl.dataset.bsToggle = "modal";
   $pokemonEl.dataset.bsTarget = "#pokemon-modal";
