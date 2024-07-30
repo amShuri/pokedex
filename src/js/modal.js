@@ -4,7 +4,6 @@ function setupPokemonModalButton() {
   $pokemonList.addEventListener("click", (e) => {
     const $pokemonBox = e.target.closest(".pokemon-box");
     if (!$pokemonBox) return;
-    3;
 
     const $pokemonImg = $pokemonBox.querySelector(".pokemon-img");
     const pokemonNumber = $pokemonImg.dataset.pokemonNumber;
