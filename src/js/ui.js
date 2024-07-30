@@ -1,6 +1,9 @@
 function displayPokemonList(offset) {
   const pokemonPerPage = 24;
-  const storedPokemonList = retrieveObjectFromLocalStorage(offset);
+  const storedPokemonList = retrieveDataFromLocalStorage(
+    "pokemon-list",
+    offset
+  );
 
   if (storedPokemonList) {
     createPokemonList(storedPokemonList);
@@ -8,7 +11,7 @@ function displayPokemonList(offset) {
     updatePageCount(storedPokemonList.count, pokemonPerPage, offset);
   } else {
     getPokemonList(offset, pokemonPerPage).then((pokemonList) => {
-      storeObjectToLocalStorage(offset, pokemonList);
+      storeDataInLocalStorage("pokemon-list", offset, pokemonList);
       createPokemonList(pokemonList);
       updatePageBtnOffset(pokemonList);
       updatePageCount(pokemonList.count, pokemonPerPage, offset);
@@ -17,14 +20,17 @@ function displayPokemonList(offset) {
 }
 
 function displayPokemonModal(pokemonNumber) {
-  const storedPokemonInfo = retrieveObjectFromLocalStorage(pokemonNumber);
+  const storedPokemonInfo = retrieveDataFromLocalStorage(
+    "pokemon-data",
+    pokemonNumber
+  );
 
   if (storedPokemonInfo) {
     createPokemonModal(storedPokemonInfo);
   } else {
     getPokemonInfo(pokemonNumber).then((pokemon) => {
       const pokemonInfo = formatPokemonInfo(pokemon);
-      storeObjectToLocalStorage(pokemonNumber, pokemonInfo);
+      storeDataInLocalStorage("pokemon-data", pokemonNumber, pokemonInfo);
       createPokemonModal(pokemonInfo);
     });
   }
