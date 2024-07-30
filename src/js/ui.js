@@ -1,11 +1,33 @@
 function displayPokemonList(offset) {
   const pokemonPerPage = 30;
+  const storedPokemonList = retrieveObjectFromLocalStorage(offset);
+
+  if (storedPokemonList) {
+    createPokemonList(storedPokemonList);
+    updatePageBtnOffset(storedPokemonList);
+    updatePageCount(storedPokemonList.count, pokemonPerPage, offset);
+  } else {
     getPokemonList(offset, pokemonPerPage).then((pokemonList) => {
       storeObjectToLocalStorage(offset, pokemonList);
       createPokemonList(pokemonList);
       updatePageBtnOffset(pokemonList);
       updatePageCount(pokemonList.count, pokemonPerPage, offset);
     });
+  }
+}
+
+function displayPokemonModal(pokemonNumber) {
+  const storedPokemonInfo = retrieveObjectFromLocalStorage(pokemonNumber);
+
+  if (storedPokemonInfo) {
+    createPokemonModal(storedPokemonInfo);
+  } else {
+    getPokemonInfo(pokemonNumber).then((pokemon) => {
+      const pokemonInfo = formatPokemonInfo(pokemon);
+      storeObjectToLocalStorage(pokemonNumber, pokemonInfo);
+      createPokemonModal(pokemonInfo);
+    });
+  }
 }
 
 function createPokemonList(pokemonList) {
