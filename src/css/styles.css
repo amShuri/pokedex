@@ -23,6 +23,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 }
 
 .pokemon-number {
@@ -30,10 +31,6 @@ body {
   position: absolute;
   right: 5px;
   top: 2px;
-}
-
-.pokemon-list .pokemon-box {
-  cursor: pointer;
 }
 
 .pokemon-box:hover {
