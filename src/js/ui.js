@@ -47,14 +47,15 @@ function createPokemonList(pokemonList) {
   });
 }
 
-function createPokemonElement(pokemon, pokemonContainer) {
-  const $pokemonEl = document.createElement("div");
-  $pokemonEl.classList.add("pokemon-box", "justify-content-evenly");
-  $pokemonEl.id = "pokemon-box";
-  $pokemonEl.dataset.bsToggle = "modal";
-  $pokemonEl.dataset.bsTarget = "#pokemon-modal";
+function createPokemonElement(pokemon, $pokemonContainer) {
+  const $pokemonBox = document.createElement("div");
+  $pokemonBox.id = "pokemon-box";
+  $pokemonBox.classList.add("pokemon-box");
+  $pokemonBox.dataset.bsToggle = "modal";
+  $pokemonBox.dataset.bsTarget = "#pokemon-modal";
+  $pokemonBox.dataset.pokemonNumber = pokemon.number;
 
-  $pokemonEl.insertAdjacentHTML(
+  $pokemonBox.insertAdjacentHTML(
     "beforeend",
     `
       <p class="pokemon-number m-0">#${pokemon.number}</p>
@@ -63,8 +64,6 @@ function createPokemonElement(pokemon, pokemonContainer) {
         class="img-fluid pokemon-img"
         alt="pokemon sprite"
         aria-label="Image of ${pokemon.name}"
-        data-pokemon-name="${pokemon.name}"
-        data-pokemon-number="${pokemon.number}"
         title="${pokemon.name}"
         height=100
         width=100
@@ -74,8 +73,7 @@ function createPokemonElement(pokemon, pokemonContainer) {
       </p>
     `
   );
-
-  pokemonContainer.appendChild($pokemonEl);
+  $pokemonContainer.appendChild($pokemonBox);
 }
 
 function createPokemonModal(pokemon) {
