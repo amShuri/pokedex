@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto");
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.pokemon-list {
+  max-width: 1000px;
+  margin: 0 auto;
+  gap: 10px;
+}
+
+.pokemon-box {
+  background-color: #82729765;
+  border-radius: 4px;
+  color: #423f3f;
+  height: 160px;
+  position: relative;
+  text-align: center;
+  text-transform: capitalize;
+  width: 150px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+}
+
+.pokemon-number {
+  font-size: 0.8rem;
+  position: absolute;
+  right: 5px;
+  top: 2px;
+}
+
+.pokemon-box:hover {
+  background-color: #8f82a0a6;
+}
+
+.pokemon-box:active,
+.pokemon-box:focus {
+  background-color: #827297c2;
+}
+
+.pokemon-img {
+  max-width: 200px;
+}
