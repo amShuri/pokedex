@@ -1,12 +1,10 @@
-function setupPokemonModalButton() {
-  const $pokemonList = document.querySelector("#pokemon-list");
+import { displayPokemonModal } from "./ui.js";
 
-  $pokemonList.addEventListener("click", (e) => {
+export function setupPokemonModal() {
+  document.querySelector("#pokemon-list").addEventListener("click", (e) => {
     const $pokemonBox = e.target.closest(".pokemon-box");
     if (!$pokemonBox) return;
 
-    const pokemonNumber = $pokemonBox.dataset.pokemonNumber;
-
-    displayPokemonModal(pokemonNumber);
+    displayPokemonModal($pokemonBox.dataset.pokemonNumber);
   });
 }

@@ -1,4 +1,4 @@
-function formatPokemonList(pokemonList) {
+export function formatPokemonList(pokemonList) {
   return pokemonList.map((pokemon) => {
     const idMatch = pokemon.url.match(/\d+\/$/);
     const pokemonNumber = idMatch ? idMatch[0].replace("/", "") : null;
@@ -10,7 +10,7 @@ function formatPokemonList(pokemonList) {
   });
 }
 
-function formatPokemonInfo(pokemonInfo) {
+export function formatPokemonInfo(pokemonInfo) {
   return {
     name: pokemonInfo["name"],
     number: pokemonInfo["id"],

@@ -1,10 +1,7 @@
-function storeDataInLocalStorage(storageObject, key, dataToStore) {
-  const storedData = JSON.parse(localStorage.getItem(storageObject)) || {};
-  storedData[key] = dataToStore;
-  localStorage.setItem(storageObject, JSON.stringify(storedData));
+export function storeDataInLocalStorage(cacheKey, dataToStore) {
+  localStorage.setItem(cacheKey, JSON.stringify(dataToStore));
 }
 
-function retrieveDataFromLocalStorage(storageObject, key) {
-  const storedData = JSON.parse(localStorage.getItem(storageObject)) || {};
-  return storedData[key];
+export function retrieveDataFromLocalStorage(cacheKey) {
+  return localStorage.getItem(cacheKey);
 }

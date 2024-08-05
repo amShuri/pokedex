@@ -1,10 +1,12 @@
+import { displayPokemonList } from "./ui.js";
+import { setupPokemonModal } from "./modal.js";
+import { setupNextPage, setupPreviousPage} from "./pagination.js"
+
 function initialize() {
-  displayPokemonList(0);
-
-  setupPreviousPageButton();
-  setupNextPageButton();
-
-  setupPokemonModalButton();
+  displayPokemonList();
+  setupPokemonModal();
+  setupPreviousPage();
+  setupNextPage();
 }
 
 initialize();

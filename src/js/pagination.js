@@ -1,48 +1,9 @@
-function updatePrevPageBtn(prevPageOffset) {
-  const $previousBtn = document.querySelector("#previous-page-btn");
+import { displayPokemonList } from "./ui.js";
 
-  if (prevPageOffset) {
-    $previousBtn.disabled = false;
-    $previousBtn.dataset.previousOffset = prevPageOffset;
-  } else {
-    $previousBtn.disabled = true;
-  }
-}
+const $previousPageBtn = document.querySelector("#previous-page-btn");
+const $nextPageBtn = document.querySelector("#next-page-btn");
 
-function updateNextPageBtn(nextPageOffset) {
-  const $nextBtn = document.querySelector("#next-page-btn");
-  if (nextPageOffset) {
-    $nextBtn.disabled = false;
-    $nextBtn.dataset.nextOffset = nextPageOffset;
-  } else {
-    $nextBtn.disabled = true;
-  }
-}
-
-function updatePageBtnOffset(pokemonList) {
-  updatePrevPageBtn(pokemonList.previous);
-  updateNextPageBtn(pokemonList.next);
-}
-
-function updateTotalPages(pokemonCount, pokemonPerPage) {
-  const pageCount = Math.ceil(pokemonCount / pokemonPerPage);
-  const $totalPages = document.querySelector("#total-pages");
-  $totalPages.textContent = pageCount;
-}
-
-function updateCurrentPage(offset, pokemonPerPage) {
-  const $currentPage = document.querySelector("#current-page");
-  $currentPage.textContent = Math.floor(offset / pokemonPerPage) + 1;
-}
-
-function updatePageCount(pokemonCount, pokemonPerPage, offset) {
-  updateTotalPages(pokemonCount, pokemonPerPage);
-  updateCurrentPage(offset, pokemonPerPage);
-}
-
-function setupPreviousPageButton() {
-  const $previousPageBtn = document.querySelector("#previous-page-btn");
-
+export function setupPreviousPage() {
   $previousPageBtn.addEventListener("click", (e) => {
     const previousPage = e.currentTarget.dataset.previousOffset;
     if (!previousPage) return;
@@ -52,9 +13,7 @@ function setupPreviousPageButton() {
   });
 }
 
-function setupNextPageButton() {
-  const $nextPageBtn = document.querySelector("#next-page-btn");
-
+export function setupNextPage() {
   $nextPageBtn.addEventListener("click", (e) => {
     const nextPage = e.currentTarget.dataset.nextOffset;
     if (!nextPage) return;
@@ -62,4 +21,43 @@ function setupNextPageButton() {
     const offset = nextPage.match(/\b(\d+)/)[0];
     displayPokemonList(offset);
   });
+}
+
+export function updatePageOffset(previousOffset, nextOffset) {
+  updatePreviousPageOffset(previousOffset);
+  updateNextPageOffset(nextOffset);
+}
+
+export function updatePageCount(pokemonCount, pokemonPerPage, offset) {
+  updateTotalPages(pokemonCount, pokemonPerPage);
+  updateCurrentPage(offset, pokemonPerPage);
+}
+
+function updateNextPageOffset(nextOffset) {
+  if (nextOffset) {
+    $nextPageBtn.disabled = false;
+    $nextPageBtn.dataset.nextOffset = nextOffset;
+  } else {
+    $nextPageBtn.disabled = true;
+  }
+}
+
+function updatePreviousPageOffset(previousOffset) {
+  if (previousOffset) {
+    $previousPageBtn.disabled = false;
+    $previousPageBtn.dataset.previousOffset = previousOffset;
+  } else {
+    $previousPageBtn.disabled = true;
+  }
+}
+
+function updateTotalPages(pokemonCount, pokemonPerPage) {
+  const pageCount = Math.ceil(pokemonCount / pokemonPerPage);
+  document.querySelector("#total-pages").textContent = pageCount;
+}
+
+function updateCurrentPage(offset, pokemonPerPage) {
+  // "offset" starts at 0 so we have to add 1 to the current page.
+  const currentPage = Math.floor(offset / pokemonPerPage) + 1;
+  document.querySelector("#current-page").textContent = currentPage;
 }
