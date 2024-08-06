@@ -6,7 +6,7 @@ export async function getPokemonList(offset, limit) {
     .catch((err) => console.log(err));
 }
 
-export async function getPokemonInfo(pokemonNumber) {
+export async function getPokemonInfoForModal(pokemonNumber) {
   return fetch(`${BASE_URL}/${pokemonNumber}`)
     .then((response) => response.json())
     .catch((err) => console.log(err));
