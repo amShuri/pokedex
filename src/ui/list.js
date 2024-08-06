@@ -1,21 +1,8 @@
-import { getPokemonList, pokemonPerPage } from "../services/pokemon.js";
 import { formatPokemonList } from "../utils/general.js";
-import { updatePageOffset } from "../utils/pagination.js";
-import { 
-  updateTotalPages,
-  updateCurrentPage,
-  updatePageBtnState
-} from "./pagination.js";
 
-export async function displayPokemonList(offset = 0) {
-  const pokemonList = await getPokemonList(offset);
+export function displayPokemonList(pokemonList) {
   const formattedList = formatPokemonList(pokemonList.results);
   createPokemonList(formattedList);
-
-  updatePageOffset(pokemonList.previous, pokemonList.next);
-  updatePageBtnState(pokemonList.previous, pokemonList.next)
-  updateTotalPages(pokemonList.count, pokemonPerPage);
-  updateCurrentPage(offset, pokemonPerPage);
 }
 
 function createPokemonList(pokemonList) {

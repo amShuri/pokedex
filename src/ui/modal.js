@@ -1,8 +1,6 @@
-import { getPokemonInfoForModal } from "../api/api.js";
 import { formatPokemonInfo } from "../utils/general.js";
 
-export async function displayPokemonModal(pokemonNumber) {
-  const pokemonInfo = await getPokemonInfoForModal(pokemonNumber);
+export function displayPokemonModal(pokemonInfo) {
   const formattedInfo = formatPokemonInfo(pokemonInfo);
   createPokemonModal(formattedInfo);
 }

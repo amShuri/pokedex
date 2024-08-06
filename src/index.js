@@ -1,12 +1,12 @@
-import { displayPokemonList } from "./ui/list.js";
 import { 
+  changePage,
   setupNextPage,
   setupPreviousPage,
   setupPokemonModal
 } from "./pokedex.js"
 
 function initialize() {
-  displayPokemonList();
+  changePage();
   setupPokemonModal();
   setupPreviousPage();
   setupNextPage();
