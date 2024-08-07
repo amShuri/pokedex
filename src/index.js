@@ -1,9 +1,9 @@
-import { 
+import {
   changePage,
   setupNextPage,
   setupPreviousPage,
-  setupPokemonModal
-} from "./pokedex.js"
+  setupPokemonModal,
+} from "./pokedex.js";
 
 function initialize() {
   changePage();

@@ -39,7 +39,7 @@ function createPokemonList(pokemonList) {
         ${pokemon.name}
       </p>
       `
-    )
+    );
 
     $pokemonContainer.appendChild($pokemonBox);
   });

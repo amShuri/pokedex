@@ -1,14 +1,14 @@
 import * as pokemon from "../api/api.js";
 import {
   storeDataInLocalStorage,
-  retrieveDataFromLocalStorage 
+  retrieveDataFromLocalStorage,
 } from "../storage/localStorage.js";
 
 export const pokemonPerPage = 24;
 
 export async function getPokemonList(offset) {
-  const cacheKey = `list_${offset}`
-  const baseCache = retrieveDataFromLocalStorage(cacheKey)
+  const cacheKey = `list_${offset}`;
+  const baseCache = retrieveDataFromLocalStorage(cacheKey);
   if (baseCache) {
     return JSON.parse(baseCache);
   }

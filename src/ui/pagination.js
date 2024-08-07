@@ -14,9 +14,9 @@ export function updateCurrentPage(offset, pokemonPerPage) {
 export function updatePageBtnState(previousOffset, nextOffset) {
   previousOffset
   ? $previousPageBtn.disabled = false
-  : $previousPageBtn.disabled = true
+  : $previousPageBtn.disabled = true;
   
   nextOffset
   ? $nextPageBtn.disabled = false
-  : $nextPageBtn.disabled = true
+  : $nextPageBtn.disabled = true;
 }

@@ -6,10 +6,10 @@ export function getPageOffsetFromUrl(offsetUrl) {
 
 export function updatePageOffset(previousOffset, nextOffset) {
   if (previousOffset) {
-    $previousPageBtn.dataset.previousOffset = previousOffset
+    $previousPageBtn.dataset.previousOffset = previousOffset;
   }
 
   if (nextOffset) {
-    $nextPageBtn.dataset.nextOffset = nextOffset
+    $nextPageBtn.dataset.nextOffset = nextOffset;
   }
 }
