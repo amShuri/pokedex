@@ -1,12 +1,17 @@
 import { formatPokemonInfo } from "../utils/general.js";
 
-export function displayPokemonModal(pokemonInfo) {
+const $pokemonModal = document.querySelector("#pokemon-modal .modal-body");
+
+export function renderPokemonModal(pokemonInfo) {
   const formattedInfo = formatPokemonInfo(pokemonInfo);
   createPokemonModal(formattedInfo);
 }
 
+export function showLoadingTextForModal() {
+  $pokemonModal.innerHTML = "Loading Pokemon...";
+}
+
 function createPokemonModal(pokemon) {
-  const $pokemonModal = document.querySelector("#pokemon-modal .modal-body");
   $pokemonModal.innerHTML = "";
 
   $pokemonModal.insertAdjacentHTML(

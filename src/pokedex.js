@@ -1,5 +1,5 @@
-import { displayPokemonList } from "./ui/list.js";
-import { displayPokemonModal } from "./ui/modal.js";
+import { renderPokemonList, showLoadingTextForList } from "./ui/list.js";
+import { renderPokemonModal, showLoadingTextForModal } from "./ui/modal.js";
 import { updatePageOffset, getPageOffsetFromUrl } from "./utils/pagination.js";
 import {
   getPokemonList,
@@ -16,9 +16,10 @@ export const $previousPageBtn = document.querySelector("#previous-page-btn");
 export const $nextPageBtn = document.querySelector("#next-page-btn");
 
 export async function changePage(offset = 0) {
-  const pokemonList = await getPokemonList(offset);
+  showLoadingTextForList();
 
-  displayPokemonList(pokemonList);
+  const pokemonList = await getPokemonList(offset);
+  renderPokemonList(pokemonList);
   updatePageOffset(pokemonList.previous, pokemonList.next)
   updatePageBtnState(pokemonList.previous, pokemonList.next)
   updateTotalPages(pokemonList.count, pokemonPerPage)
@@ -49,9 +50,10 @@ export function setupPokemonModal() {
   $pokemonList.addEventListener("click", async (e) => {
     const $pokemonBox = e.target.closest(".pokemon-box");
     if (!$pokemonBox) return;
-
+    
+    showLoadingTextForModal();
     const pokemonNumber = $pokemonBox.dataset.pokemonNumber;
     const pokemonInfo = await getPokemonInfoForModal(pokemonNumber)
-    displayPokemonModal(pokemonInfo);
+    renderPokemonModal(pokemonInfo);
   });
 }

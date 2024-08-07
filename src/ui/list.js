@@ -1,12 +1,17 @@
 import { formatPokemonList } from "../utils/general.js";
 
-export function displayPokemonList(pokemonList) {
+const $pokemonContainer = document.querySelector("#pokemon-list");
+
+export function renderPokemonList(pokemonList) {
   const formattedList = formatPokemonList(pokemonList.results);
   createPokemonList(formattedList);
 }
 
+export function showLoadingTextForList() {
+  $pokemonContainer.innerHTML = "Loading Page...";
+}
+
 function createPokemonList(pokemonList) {
-  const $pokemonContainer = document.querySelector("#pokemon-list");
   $pokemonContainer.innerHTML = "";
 
   Object.values(pokemonList).forEach((pokemon) => {
