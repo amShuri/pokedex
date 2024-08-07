@@ -1,6 +1,6 @@
 import { displayPokemonList } from "./ui/list.js";
 import { displayPokemonModal } from "./ui/modal.js";
-import { updatePageOffset } from "./utils/pagination.js";
+import { updatePageOffset, getPageOffsetFromUrl } from "./utils/pagination.js";
 import {
   getPokemonList,
   getPokemonInfoForModal,
@@ -27,21 +27,19 @@ export async function changePage(offset = 0) {
 
 export function setupPreviousPage() {
   $previousPageBtn.addEventListener("click", (e) => {
-    const previousPage = e.currentTarget.dataset.previousOffset;
-    if (!previousPage) return;
+    const previousPageUrl = e.currentTarget.dataset.previousOffset;
+    if (!previousPageUrl) return;
 
-    const offset = previousPage.match(/\b(\d+)/)[0];
-    changePage(offset);
+    changePage(getPageOffsetFromUrl(previousPageUrl))
   });
 }
 
 export function setupNextPage() {
   $nextPageBtn.addEventListener("click", (e) => {
-    const nextPage = e.currentTarget.dataset.nextOffset;
-    if (!nextPage) return;
+    const nextPageUrl = e.currentTarget.dataset.nextOffset;
+    if (!nextPageUrl) return;
 
-    const offset = nextPage.match(/\b(\d+)/)[0];
-    changePage(offset);
+    changePage(getPageOffsetFromUrl(nextPageUrl))
   });
 }
 
