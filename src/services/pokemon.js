@@ -1,33 +1,32 @@
-import * as pokemon from "../api/api.js";
 import {
-  storeDataInLocalStorage,
-  retrieveDataFromLocalStorage,
-} from "../storage/localStorage.js";
+  getPokemonList as getPokemonListFromApi,
+  getPokemon as getPokemonFromApi,
+  POKEMON_PER_PAGE,
+} from "../api/pokemon.js";
 
-export const pokemonPerPage = 24;
+import {
+  storePokemon,
+  storePokemonList,
+  getPokemonList as getPokemonListFromStorage,
+  getPokemon as getPokemonFromStorage,
+} from "../storage/pokemon.js";
 
 export async function getPokemonList(offset) {
-  const cacheKey = `list_${offset}`;
-  const baseCache = retrieveDataFromLocalStorage(cacheKey);
-  if (baseCache) {
-    return JSON.parse(baseCache);
+  try {
+    return getPokemonListFromStorage(offset);
+  } catch (err) {
+    const pokemonList = await getPokemonListFromApi(offset, POKEMON_PER_PAGE);
+    storePokemonList(offset, pokemonList);
+    return pokemonList;
   }
-
-  const pokemonList = await pokemon.getPokemonList(offset, pokemonPerPage);
-  storeDataInLocalStorage(cacheKey, pokemonList);
-
-  return pokemonList;
 }
 
-export async function getPokemonInfoForModal(pokemonNumber) {
-  const cacheKey = `pokemon_${pokemonNumber}`;
-  const baseCache = retrieveDataFromLocalStorage(cacheKey);
-  if (baseCache) {
-    return JSON.parse(baseCache);
+export async function getPokemon(pokemonNumber) {
+  try {
+    return getPokemonFromStorage(pokemonNumber);
+  } catch (err) {
+    const pokemon = await getPokemonFromApi(pokemonNumber);
+    storePokemon(pokemonNumber, pokemon);
+    return pokemon;
   }
-
-  const pokemonInfo = await pokemon.getPokemonInfoForModal(pokemonNumber);
-  storeDataInLocalStorage(cacheKey, pokemonInfo);
-
-  return pokemonInfo;
 }
